@@ -10,6 +10,7 @@ import type { ServiceSlugTable } from "@/lib/i18n/switch";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { ButtonLink } from "@/components/ui/Button";
 import { Logo } from "./Logo";
+import { site } from "@/content/site";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export interface HeaderProps {
@@ -33,6 +34,7 @@ export function Header(props: HeaderProps) {
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const dropdownId = useId();
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -46,6 +48,7 @@ export function Header(props: HeaderProps) {
   useEffect(() => {
     setMobileOpen(false);
     setDropdown(false);
+    setServicesOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -76,7 +79,7 @@ export function Header(props: HeaderProps) {
         <div className="container-site pt-3 md:pt-4">
           <div
             className={`flex h-16 items-center justify-between gap-4 rounded-[var(--radius-card)] px-3 pl-4 transition-[background,border-color,box-shadow,backdrop-filter] duration-500 md:px-4 md:pl-5 ${
-              scrolled || mobileOpen ? "glass" : "border border-transparent"
+              mobileOpen ? "border border-line bg-night-2" : scrolled ? "glass max-lg:[background:rgb(22_23_27)]! max-lg:[backdrop-filter:none]!" : "border border-transparent"
             }`}
           >
             <Link href={homeHref} className="rounded-lg" aria-label={`Codec — ${labels.home}`}>
@@ -194,53 +197,115 @@ export function Header(props: HeaderProps) {
             role="dialog"
             aria-modal="true"
             aria-label={labels.menu}
-            className="fixed inset-0 z-40 overflow-y-auto bg-night/95 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-night lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease }}
+            exit={{ opacity: 0, transition: { duration: 0.25 } }}
+            transition={{ duration: 0.35, ease }}
           >
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+              <div className="absolute -right-24 -top-24 size-80 rounded-full bg-[radial-gradient(closest-side,rgb(255_90_31/0.18),transparent)]" />
+              <div className="pixel-grid absolute inset-0 [mask-image:linear-gradient(to_bottom,#000,transparent_60%)]" />
+            </div>
+
             <m.nav
               aria-label="Mobile"
-              className="container-site flex min-h-full flex-col pb-10 pt-28"
+              className="container-site relative flex-1 overflow-y-auto overscroll-contain pb-6 pt-[5.75rem]"
               initial="hidden"
               animate="show"
-              variants={{ show: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } } }}
+              variants={{ show: { transition: { staggerChildren: 0.045, delayChildren: 0.05 } } }}
             >
-              <ul className="flex flex-col">
-                {nav.map((item) => (
-                  <m.li
-                    key={item.href}
-                    variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }}
-                    className="border-b border-line"
-                  >
-                    <Link href={item.href} className="block py-4 font-display text-4xl font-semibold tracking-tight">
-                      {item.label}
-                    </Link>
-                    {item.withServices && (
-                      <ul className="-mt-1 grid gap-1 pb-4">
-                        {services.map((s) => (
-                          <li key={s.id}>
-                            <Link href={s.href} data-accent={s.accent} className="flex items-center gap-3 py-1.5 text-muted hover:text-fg">
-                              <Icon name={s.icon} size={18} className="text-[var(--accent)]" />
-                              {s.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </m.li>
-                ))}
+              <ul>
+                {nav.map((item, idx) => {
+                  const active = isActive(item.href);
+                  return (
+                    <m.li
+                      key={item.href}
+                      variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease } } }}
+                      className="border-b border-line"
+                    >
+                      <div className="flex items-center">
+                        <Link
+                          href={item.href}
+                          aria-current={active ? "page" : undefined}
+                          className="group flex flex-1 items-center gap-3 py-[0.95rem]"
+                        >
+                          <span className="w-5 font-display text-[0.7rem] tabular-nums text-subtle">{String(idx + 1).padStart(2, "0")}</span>
+                          <span className={`font-display text-[1.3rem] font-medium tracking-[-0.03em] ${active ? "text-fg" : "text-fg/80"}`}>{item.label}</span>
+                          {active && <span aria-hidden="true" className="size-[6px] rounded-[1px] bg-ember" />}
+                        </Link>
+                        {item.withServices ? (
+                          <button
+                            type="button"
+                            aria-expanded={servicesOpen}
+                            aria-controls="mobile-services"
+                            aria-label={item.label}
+                            onClick={() => setServicesOpen((v) => !v)}
+                            className="grid size-10 place-items-center rounded-full border border-line text-muted transition-colors active:bg-white/5"
+                          >
+                            <Icon name="chevronDown" size={18} className={`transition-transform duration-300 ${servicesOpen ? "rotate-180 text-ember" : ""}`} />
+                          </button>
+                        ) : (
+                          <Icon name="arrowRight" size={18} className="mr-3 text-subtle" />
+                        )}
+                      </div>
+
+                      {item.withServices && (
+                        <AnimatePresence initial={false}>
+                          {servicesOpen && (
+                            <m.ul
+                              id="mobile-services"
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.4, ease }}
+                              className="grid gap-2 overflow-hidden"
+                            >
+                              {services.map((s, k) => (
+                                <li key={s.id} className={k === services.length - 1 ? "pb-4" : ""}>
+                                  <Link
+                                    href={s.href}
+                                    data-accent={s.accent}
+                                    className="flex items-center gap-3 rounded-[14px] border border-line bg-white/[0.025] p-3 active:bg-white/[0.06]"
+                                  >
+                                    <span className="grid size-10 shrink-0 place-items-center rounded-[10px] border border-line bg-night-2 text-[var(--accent)]">
+                                      <Icon name={s.icon} size={19} />
+                                    </span>
+                                    <span className="min-w-0">
+                                      <span className="block text-[0.95rem] font-medium text-fg">{s.title}</span>
+                                      <span className="mt-0.5 line-clamp-1 text-[0.8rem] text-muted">{s.summary}</span>
+                                    </span>
+                                  </Link>
+                                </li>
+                              ))}
+                            </m.ul>
+                          )}
+                        </AnimatePresence>
+                      )}
+                    </m.li>
+                  );
+                })}
               </ul>
-              <m.div
-                className="mt-10"
-                variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }}
-              >
-                <ButtonLink href={contactHref} icon="arrowRight" className="w-full">
-                  {labels.bookCall}
-                </ButtonLink>
-              </m.div>
             </m.nav>
+
+            {/* Always visible at the bottom */}
+            <m.div
+              className="container-site relative border-t border-line bg-night/90 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease, delay: 0.2 }}
+            >
+              <ButtonLink href={contactHref} icon="arrowRight" className="w-full">
+                {labels.bookCall}
+              </ButtonLink>
+              <a href={`tel:${site.contact.phones.main.href}`} className="mt-3 flex items-center justify-center gap-2 text-sm text-muted">
+                <span className="relative flex size-1.5" aria-hidden="true">
+                  <span className="animate-pulse-ring absolute inline-flex size-full rounded-[1px] bg-ember" />
+                  <span className="relative inline-flex size-1.5 rounded-[1px] bg-ember" />
+                </span>
+                0–24 · {site.contact.phones.main.display}
+              </a>
+            </m.div>
           </m.div>
         )}
       </AnimatePresence>

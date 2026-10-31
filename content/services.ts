@@ -7,6 +7,7 @@ import type { Service } from "./types";
  */
 export const services: Service[] = [
   {
+    // Content taken from the original codec-info.hr CAM page and the CAM brochure (PDF).
     id: "call-accounting",
     slug: { hr: "obracun-telefonskih-troskova", en: "call-accounting" },
     icon: "callStats",
@@ -15,41 +16,110 @@ export const services: Service[] = [
     visual: "callAccounting",
     title: { hr: "Call Accounting Manager", en: "Call Accounting Manager" },
     tagline: {
-      hr: "Potpun pregled i kontrola telefonskih troškova, po korisniku, odjelu ili sobi.",
-      en: "Full visibility and control of telephone costs, per user, department or room.",
+      hr: "Prihvat, tarifikacija i pregled svih poziva s vaše telefonske centrale — u osnovnoj, hotelskoj i mrežnoj verziji.",
+      en: "Capture, pricing and review of every call from your phone system — in standard, hotel and network editions.",
     },
     summary: {
-      hr: "CAM prikuplja podatke s telefonskih centrala i pretvara ih u jasne obračune, povećavajući produktivnost uz smanjenje operativnih troškova.",
-      en: "CAM collects data from phone systems and turns it into clear billing, raising productivity while cutting operating costs.",
+      hr: "CAM (Call Accounting Manager) aplikacijski sustavi najbolji su način da povećate produktivnost uz smanjenje telefonskih operativnih troškova.",
+      en: "CAM (Call Accounting Manager) systems are the best way to increase productivity while reducing telephone operating costs.",
     },
     intro: {
       hr: [
-        "Call Accounting Manager (CAM) naš je dugogodišnji aplikacijski sustav za obračun telefonskog prometa, implementiran u tvrtkama, hotelima i bolnicama u Hrvatskoj i inozemstvu.",
-        "CAM prihvaća podatke s telefonskih centrala, obračunava svaki poziv i omogućuje izvještaje po korisniku, odjelu, lokaciji ili hotelskoj sobi.",
+        "Call Accounting Manager (CAM) prihvaća podatke o pozivima s telefonske centrale, automatski ih tarifira i sprema u bazu podataka, gdje su dostupni za pregled i obračun.",
+        "Sustav dolazi u tri verzije: osnovnoj za tvrtke, hotelskoj s upravljanjem sobama i ispisom računa gostima te mrežnoj za više centrala i lokacija sa središnjom administracijom.",
       ],
       en: [
-        "Call Accounting Manager (CAM) is our long-standing application for telephone traffic billing, deployed in companies, hotels and hospitals in Croatia and abroad.",
-        "CAM receives data from phone systems, prices every call and reports by user, department, location or hotel room.",
+        "Call Accounting Manager (CAM) receives call data from your phone system, prices calls automatically and stores them in a database, ready for review and billing.",
+        "It comes in three editions: standard for companies, hotel with room management and guest invoicing, and network for multiple phone systems and sites with central administration.",
       ],
     },
     features: [
-      { icon: "server", title: { hr: "Prihvat podataka s centrala", en: "Data capture from phone systems" }, text: { hr: "Podržava podatke o pozivima s različitih telefonskih centrala.", en: "Supports call data from a range of phone systems." } },
-      { icon: "chart", title: { hr: "Obračun i izvještaji", en: "Billing and reports" }, text: { hr: "Troškovi po korisniku, odjelu ili lokaciji, s detaljnim i zbirnim izvještajima.", en: "Costs by user, department or location, with detailed and summary reports." } },
-      { icon: "lock", title: { hr: "Upravljanje lokalima", en: "Extension management" }, text: { hr: "Otključavanje i zaključavanje telefona izravno iz aplikacije.", en: "Lock and unlock phones directly from the application." } },
-      { icon: "coins", title: { hr: "Manji operativni troškovi", en: "Lower operating costs" }, text: { hr: "Uvid u promet otkriva neopravdane troškove i potiče odgovorno korištenje.", en: "Visibility of traffic exposes unjustified costs and encourages responsible use." } },
+      {
+        icon: "server",
+        title: { hr: "Prihvat podataka s centrale", en: "Data capture from the phone system" },
+        text: {
+          hr: "Serijskom vezom, TCP/IP-om ili preko baze podataka (SQL / MySQL) za Cisco i Asterisk sustave, uz jednosmjernu ili dvosmjernu komunikaciju.",
+          en: "Over a serial link, TCP/IP or a database interface (SQL / MySQL) for Cisco and Asterisk, with one-way or two-way communication.",
+        },
+      },
+      {
+        icon: "phone",
+        title: { hr: "Svi pozivi na jednom mjestu", en: "Every call in one place" },
+        text: {
+          hr: "Obrada odlaznih, dolaznih i VPN poziva te evidencija neodgovorenih poziva.",
+          en: "Processing of outgoing, incoming and VPN calls, plus a log of unanswered calls.",
+        },
+      },
+      {
+        icon: "coins",
+        title: { hr: "Automatska tarifikacija", en: "Automatic call pricing" },
+        text: {
+          hr: "Pozivi se tarifiraju automatski, i za više operatera istovremeno.",
+          en: "Calls are priced automatically, including for several operators at once.",
+        },
+      },
+      {
+        icon: "layout",
+        title: { hr: "Kategorije lokala", en: "Extension categories" },
+        text: {
+          hr: "Interni brojevi (lokali) grupiraju se u kategorije radi jasnijeg pregleda.",
+          en: "Internal extensions are grouped into categories for a clearer overview.",
+        },
+      },
+      {
+        icon: "link",
+        title: { hr: "Podržane centrale", en: "Supported phone systems" },
+        text: {
+          hr: "Ericsson, Aastra, Avaya, Cisco, Asterisk, Siemens i Panasonic.",
+          en: "Ericsson, Aastra, Avaya, Cisco, Asterisk, Siemens and Panasonic.",
+        },
+      },
+      {
+        icon: "database",
+        title: { hr: "MS SQL baza i sigurnosne kopije", en: "MS SQL database and backups" },
+        text: {
+          hr: "Podaci se čuvaju u MS SQL bazi uz automatsku dnevnu sigurnosnu kopiju; prikupljanje podataka radi kao Windows servis.",
+          en: "Data is kept in an MS SQL database with an automatic daily backup; data collection runs as a Windows service.",
+        },
+      },
     ],
     editions: [
       {
         title: { hr: "Osnovna verzija", en: "Standard edition" },
-        text: { hr: "Za tvrtke koje žele jasan obračun telefonskih troškova na jednoj lokaciji.", en: "For companies that want clear telephone cost billing at one site." },
+        text: { hr: "Prihvat i tarifikacija poziva s telefonske centrale.", en: "Capture and pricing of calls from the phone system." },
+        points: {
+          hr: ["Prihvat podataka serijski, TCP/IP-om ili iz baze (Cisco, Asterisk)", "Odlazni, dolazni i VPN pozivi", "Evidencija neodgovorenih poziva", "Grupiranje lokala u kategorije", "Automatska tarifikacija, i za više operatera"],
+          en: ["Data capture via serial, TCP/IP or database (Cisco, Asterisk)", "Outgoing, incoming and VPN calls", "Log of unanswered calls", "Extensions grouped into categories", "Automatic pricing, including multiple operators"],
+        },
       },
       {
         title: { hr: "Hotelska verzija", en: "Hotel edition" },
-        text: { hr: "Obračun poziva po sobi i upravljanje telefonima u sobama gostiju.", en: "Per-room call billing and control of phones in guest rooms." },
+        text: { hr: "Za hotele: upravljanje sobama i obračun poziva gostima.", en: "For hotels: room management and guest call billing." },
+        points: {
+          hr: ["Upravljanje sobama — zaključavanje i otključavanje telefona", "Buđenje (wake-up) i govorna pošta", "Prikaz imena gosta na digitalnim telefonima", "Prosljeđivanje podataka recepciji i drugim podsustavima", "Ispis računa gostu s hotelskim dodatkom", "Pregled naplaćenih i nenaplaćenih poziva te blagajne"],
+          en: ["Room management — locking and unlocking phones", "Wake-up calls and voice mail", "Guest name shown on digital phones", "Data forwarded to reception and other subsystems", "Guest invoice printing with hotel surcharge", "Review of billed and unbilled calls and the cash register"],
+        },
       },
       {
         title: { hr: "Mrežna verzija", en: "Network edition" },
-        text: { hr: "Centralni obračun za više lokacija i centrala unutar grupe tvrtki.", en: "Central billing across multiple sites and phone systems within a group." },
+        text: { hr: "Za više centrala i lokacija povezanih mrežom.", en: "For several phone systems and sites connected over a network." },
+        points: {
+          hr: ["Prosljeđivanje podataka drugim računalima u mreži, odmah ili dnevno", "Središnja administracija sustava", "Selektivan pristup pregledu podataka", "Pristup podacima i preko web sučelja"],
+          en: ["Data forwarded to other computers on the network, immediately or daily", "Central system administration", "Selective access to view data", "Data access via a web interface"],
+        },
+      },
+    ],
+    faq: [
+      {
+        q: { hr: "Koje telefonske centrale CAM podržava?", en: "Which phone systems does CAM support?" },
+        a: { hr: "Ericsson, Aastra, Avaya, Cisco, Asterisk, Siemens i Panasonic.", en: "Ericsson, Aastra, Avaya, Cisco, Asterisk, Siemens and Panasonic." },
+      },
+      {
+        q: { hr: "Kako se CAM spaja na centralu?", en: "How does CAM connect to the phone system?" },
+        a: {
+          hr: "Serijskom vezom ili TCP/IP-om, a za Cisco i Asterisk sustave i preko baze podataka (SQL / MySQL). Komunikacija može biti jednosmjerna ili dvosmjerna.",
+          en: "Over a serial link or TCP/IP, and for Cisco and Asterisk also through a database interface (SQL / MySQL). Communication can be one-way or two-way.",
+        },
       },
     ],
     download: {
@@ -59,12 +129,11 @@ export const services: Service[] = [
     seo: {
       title: { hr: "Call Accounting Manager — obračun telefonskih troškova", en: "Call Accounting Manager — telephone cost billing" },
       keywords: {
-        hr: ["call accounting", "obračun telefonskih troškova", "hotelski obračun poziva", "CAM"],
-        en: ["call accounting", "telephone cost billing", "hotel call accounting", "CAM"],
+        hr: ["call accounting", "obračun telefonskih troškova", "tarifikacija poziva", "hotelski obračun poziva", "CAM"],
+        en: ["call accounting", "telephone cost billing", "call pricing", "hotel call accounting", "CAM"],
       },
     },
   },
-
   {
     id: "business-automation",
     slug: { hr: "automatizacija-poslovanja", en: "business-automation" },

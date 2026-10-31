@@ -54,7 +54,12 @@ export interface Service {
 export interface ClientGroup {
   id: string;
   title: Localized;
-  clients: { name: string; country: string }[];
+  clients: {
+    name: string;
+    country: string;
+    /** Optional logo file in /public/clients, e.g. "/clients/sheraton.svg". Shown instead of the name. */
+    logo?: string;
+  }[];
 }
 
 export interface Project {
@@ -64,12 +69,13 @@ export interface Project {
   sites?: string[];
   sector: Localized;
   location: Localized;
-  /** Service id from content/services.ts this project belongs to. */
-  serviceId: string;
+  /** Service id from content/services.ts this project belongs to (shows it on that service page). */
+  serviceId?: string;
   accent: Accent;
   title: Localized;
   summary: Localized;
-  scope: Localized<string[]>;
+  /** Confirmed project details, shown as bullets on the References page. */
+  scope?: Localized<string[]>;
   partner?: string;
   featured?: boolean;
 }

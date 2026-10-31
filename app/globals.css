@@ -1,0 +1,280 @@
+@import "tailwindcss";
+
+/* ================================================================== */
+/* Codec design tokens                                                 */
+/* Derived from the logo: graphite + steel, with signal orange pixels. */
+/* Every colour, font, radius and easing in the UI comes from here.    */
+/* ================================================================== */
+@theme {
+  /* Surfaces — graphite, built from the logo's brand ink #16171B */
+  --color-night: #111215;
+  --color-night-2: #16171b;
+  --color-night-3: #1c1e23;
+  --color-night-4: #25272e;
+  --color-line: rgb(211 214 220 / 0.09);
+  --color-line-strong: rgb(211 214 220 / 0.2);
+
+  /* Text */
+  --color-fg: #f1f2f4;
+  --color-muted: #a3a7b0;
+  --color-subtle: #757a85;
+
+  /* Brand */
+  --color-charcoal: #3a3d46;
+  --color-steel: #d3d6dc;
+  --color-ember: #ff5a1f;
+  --color-ember-soft: #ff8a57;
+  --color-amber: #ffb547;
+  --color-danger: #ff7a8a;
+
+  /* Type */
+  --font-display: "Unbounded Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii — larger surfaces get larger radii so hierarchy reads at a glance.
+     Small elements stay nearly square, echoing the logo's pixels. */
+  --radius-pixel: 3px;
+  --radius-chip: 999px;
+  --radius-control: 12px;
+  --radius-card: 20px;
+  --radius-panel: 28px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+
+  --breakpoint-xs: 30rem;
+}
+
+/* Accent indirection: components set data-accent and read --accent / --accent-rgb */
+[data-accent="ember"] { --accent: var(--color-ember); --accent-rgb: 255 90 31; }
+[data-accent="amber"] { --accent: var(--color-amber); --accent-rgb: 255 181 71; }
+[data-accent="steel"] { --accent: var(--color-steel); --accent-rgb: 211 214 220; }
+
+/* ================================================================== */
+/* Base                                                                */
+/* ================================================================== */
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-night);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+  body {
+    background: var(--color-night);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  /* Film grain — gives large dark fields a physical, printed quality */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+
+  ::selection { background: rgb(255 90 31 / 0.35); color: #fff; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ================================================================== */
+/* Type scale — Unbounded is wide, so sizes sit lower than usual and   */
+/* tracking is pulled in; body copy is Inter.                          */
+/* ================================================================== */
+@utility text-display {
+  font-family: var(--font-display);
+  font-size: clamp(1.95rem, 0.85rem + 3.9vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  font-weight: 500;
+}
+@utility text-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.1rem + 3vw, 3.9rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+@utility text-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.1rem + 1.8vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+@utility text-h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.08rem, 0.98rem + 0.45vw, 1.35rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+@utility text-lead {
+  font-size: clamp(1.04rem, 0.97rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+/* ================================================================== */
+/* Surfaces                                                            */
+/* ================================================================== */
+@utility glass {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.012)),
+    rgb(28 30 35 / 0.55);
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  border: 1px solid var(--color-line);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 30px 60px -30px rgb(0 0 0 / 0.7);
+}
+
+/* Gradient hairline border that picks up the element's accent */
+@utility edge-glow {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(140deg, rgb(var(--accent-rgb, 255 90 31) / 0.6), transparent 38%, transparent 70%, rgb(var(--accent-rgb, 255 90 31) / 0.22));
+    mask-image: linear-gradient(#000, #000), linear-gradient(#000, #000);
+    mask-clip: content-box, border-box;
+    mask-origin: content-box, border-box;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+/* Pixel grid — the logo's square module as a background texture */
+@utility pixel-grid {
+  background-image:
+    linear-gradient(rgb(211 214 220 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(211 214 220 / 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+}
+
+@utility section-y {
+  padding-block: clamp(5rem, 3rem + 8vw, 10rem);
+}
+
+/* ================================================================== */
+/* Keyframes                                                           */
+/* ================================================================== */
+@keyframes marquee { to { transform: translateX(-50%); } }
+@utility animate-marquee { animation: marquee 48s linear infinite; }
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@utility animate-pulse-ring { animation: pulse-ring 1.8s var(--ease-out-expo) infinite; }
+
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
+}
+
+/* --- Service visuals (components/visuals) -------------------------- */
+@keyframes v-fade-loop {
+  0%, 6% { opacity: 0; transform: translateY(8px); }
+  12%, 88% { opacity: 1; transform: translateY(0); }
+  96%, 100% { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes v-grow-x { from { transform: scaleX(0); } }
+@keyframes v-bar-loop {
+  0%, 8% { transform: scaleX(0); }
+  30%, 85% { transform: scaleX(1); }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes v-build {
+  0%, 5% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  14%, 86% { opacity: 1; transform: none; }
+  96%, 100% { opacity: 0; transform: none; }
+}
+@keyframes v-type {
+  0%, 4% { clip-path: inset(0 100% 0 0); }
+  20%, 88% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); opacity: 0; }
+}
+@keyframes v-ring {
+  0%, 30% { stroke-dashoffset: var(--len); }
+  55%, 88% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes v-ticker { to { transform: translateY(-50%); } }
+@keyframes v-dash { to { stroke-dashoffset: -40; } }
+@keyframes v-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+@keyframes v-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--accent-rgb) / 0); border-color: var(--color-line); }
+  50% { box-shadow: 0 0 0 6px rgb(var(--accent-rgb) / 0.08); border-color: rgb(var(--accent-rgb) / 0.55); }
+}
+@keyframes v-segment {
+  0% { background: var(--color-ember); box-shadow: 0 0 12px rgb(255 90 31 / 0.7); }
+  30% { background: rgb(255 90 31 / 0.35); box-shadow: none; }
+  100% { background: rgb(211 214 220 / 0.12); }
+}
+@keyframes v-heartbeat { to { stroke-dashoffset: 0; } }
+@keyframes v-pop {
+  0%, 10% { opacity: 0; transform: scale(0.6); }
+  18%, 86% { opacity: 1; transform: scale(1); }
+  96%, 100% { opacity: 0; transform: scale(1); }
+}
+@keyframes v-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Visuals pause while off-screen (see components/visuals/VisualFrame) */
+[data-paused="true"] *,
+[data-paused="true"] *::before,
+[data-paused="true"] *::after { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Looping visuals show their resting (fully built) state for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-visual] *, [data-visual] *::before, [data-visual] *::after { animation: none !important; }
+}
+
+@keyframes v-node {
+  0%, 100% { stroke: rgb(211 214 220 / 0.14); }
+  45% { stroke: rgb(255 181 71 / 0.75); }
+}

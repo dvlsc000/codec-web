@@ -29,7 +29,16 @@ export const site = {
       countryCode: "HR",
       mapsUrl: "https://www.google.com/maps/search/?api=1&query=Viktora+Kova%C4%8Di%C4%87a+3%2C+10000+Zagreb",
     },
-    office: { street: "Kalinovica 5", city: "Zagreb" },
+    /** Visiting office — shown on the contact map. */
+    office: {
+      street: "Kalinovica 5",
+      postalCode: "10000",
+      city: "Zagreb",
+      /** WGS84 coordinates of Kalinovica 5, Zagreb. */
+      lat: 45.792227,
+      lng: 15.954106,
+      directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=45.792227,15.954106",
+    },
   },
 
   legal: {

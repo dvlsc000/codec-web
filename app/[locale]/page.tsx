@@ -40,7 +40,7 @@ export default async function HomePage({ params }: LocaleParams) {
         signalLabel={t.hero.signalLabel}
       />
 
-      <ClientMarquee title={t.clients.title} names={allClients().map((c) => c.name)} />
+      <ClientMarquee title={t.clients.title} clients={allClients()} />
 
       <section aria-labelledby="services-title" className="section-y container-site">
         <SectionHeader id="services-title" title={t.services.title} lead={t.services.lead} />
@@ -59,7 +59,7 @@ export default async function HomePage({ params }: LocaleParams) {
         <ProcessSteps steps={t.process.steps} />
       </section>
 
-      <section aria-labelledby="heritage-title" className="container-site pb-[clamp(5rem,3rem+8vw,10rem)]">
+      <section aria-labelledby="heritage-title" className="container-site pb-[clamp(3.75rem,2rem+8vw,10rem)]">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
           <Reveal>
             <h2 id="heritage-title" className="text-h2 max-w-[16ch]">{t.heritage.title}</h2>
@@ -81,7 +81,7 @@ export default async function HomePage({ params }: LocaleParams) {
         </div>
       </section>
 
-      <section aria-labelledby="refs-title" className="container-site pb-[clamp(5rem,3rem+8vw,10rem)]">
+      <section aria-labelledby="refs-title" className="container-site pb-[clamp(3.75rem,2rem+8vw,10rem)]">
         <SectionHeader
           id="refs-title"
           title={t.references.title}

@@ -24,10 +24,17 @@ export function ProjectCard({ p, labels, detailed = false }: { p: ProjectCardDat
           <span>{p.location}</span>
         </p>
         <h3 className="text-h3 mt-5">{p.title}</h3>
-        <p className="mt-2 font-medium text-fg/75">
-          {p.client}
-          {p.partner && labels && <span className="font-normal text-muted"> · {labels.partner}: {p.partner}</span>}
-        </p>
+        {(!p.title.includes(p.client) || (p.partner && labels)) && (
+          <p className="mt-2 font-medium text-fg/75">
+            {!p.title.includes(p.client) && p.client}
+            {p.partner && labels && (
+              <span className="font-normal text-muted">
+                {!p.title.includes(p.client) && " · "}
+                {labels.partner}: {p.partner}
+              </span>
+            )}
+          </p>
+        )}
         <p className="mt-4 text-muted">{p.summary}</p>
 
         {detailed && p.scope && labels && (

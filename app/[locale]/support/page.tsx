@@ -52,7 +52,7 @@ export default async function SupportPage({ params }: LocaleParams) {
         </div>
       </PageHero>
 
-      <section aria-labelledby="channels-title" className="container-site pb-24 md:pb-32">
+      <section aria-labelledby="channels-title" className="container-site pb-16 md:pb-32">
         <SectionHeader id="channels-title" title={t.channelsTitle} align="stack" />
         <RevealGroup as="ul" className="grid gap-4 md:grid-cols-3 lg:gap-5">
           {channels.map((c) => (
@@ -86,7 +86,7 @@ export default async function SupportPage({ params }: LocaleParams) {
         </RevealGroup>
       </section>
 
-      <section aria-labelledby="included-title" className="border-y border-line bg-night-2/50 py-24 md:py-32">
+      <section aria-labelledby="included-title" className="border-y border-line bg-night-2/50 py-16 md:py-32">
         <div className="container-site grid gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
           <Reveal>
             <h2 id="included-title" className="text-h2">{t.includedTitle}</h2>
@@ -105,7 +105,7 @@ export default async function SupportPage({ params }: LocaleParams) {
         </div>
       </section>
 
-      <section aria-labelledby="covered-title" className="container-site py-24 md:py-32">
+      <section aria-labelledby="covered-title" className="container-site py-16 md:py-32">
         <SectionHeader id="covered-title" title={t.coveredTitle} align="stack" />
         <RevealGroup as="ul" className="grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {t.covered.map((c) => (
@@ -118,7 +118,7 @@ export default async function SupportPage({ params }: LocaleParams) {
         </RevealGroup>
       </section>
 
-      <section aria-labelledby="process-title" className="container-site pb-24 md:pb-32">
+      <section aria-labelledby="process-title" className="container-site pb-16 md:pb-32">
         <SectionHeader id="process-title" title={t.processTitle} lead={t.processLead} />
         <ProcessSteps steps={t.steps} />
       </section>

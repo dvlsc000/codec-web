@@ -4,6 +4,9 @@ import type { ClientGroup, Project } from "./types";
  * Reference clients, grouped by sector. Names are shown as they were at the
  * time of implementation. The client count and country count on the site are
  * computed from this list.
+ *
+ * Optional: add `logo: "/clients/<file>.svg"` to a client to show an official
+ * logo (file in /public/clients). Without it, the name is shown.
  */
 export const clientGroups: ClientGroup[] = [
   {
@@ -70,81 +73,53 @@ export const countryNames: Record<string, { hr: string; en: string }> = {
   CU: { hr: "Kuba", en: "Cuba" },
 };
 
-/** Selected implementations shown as project cards. */
+/**
+ * Selected implementations shown as project cards. Wording follows the original
+ * codec-info.hr references page; add `serviceId` only when you know which product
+ * was delivered, and `scope` only with confirmed details.
+ */
 export const projects: Project[] = [
   {
     id: "hup-zagreb",
     client: "HUP Zagreb",
     sites: ["Sheraton", "Westin", "Four Points Panorama", "International", "Jadran", "Astarea", "Mlini"],
     sector: { hr: "Hotelijerstvo", en: "Hospitality" },
-    location: { hr: "Zagreb i Dubrovnik", en: "Zagreb and Dubrovnik" },
-    serviceId: "call-accounting",
+    location: { hr: "Hrvatska", en: "Croatia" },
     accent: "ember",
     featured: true,
-    title: { hr: "Obračun poziva za hotelsku grupu", en: "Call billing for a hotel group" },
+    title: { hr: "Hotelska grupa HUP Zagreb", en: "HUP Zagreb hotel group" },
     summary: {
-      hr: "Hotelska verzija CAM sustava uvedena u hotele grupe HUP Zagreb, s obračunom poziva po sobi i upravljanjem telefonima gostiju.",
-      en: "The hotel edition of CAM rolled out across HUP Zagreb hotels, with per-room call billing and guest phone control.",
-    },
-    scope: {
-      hr: ["Prihvat podataka s hotelskih centrala", "Obračun po sobi i prijenos troška gostu", "Zaključavanje i otključavanje telefona u sobama"],
-      en: ["Data capture from hotel phone systems", "Per-room billing passed to the guest folio", "Locking and unlocking guest-room phones"],
+      hr: "Hotelsko poduzeće HUP Zagreb s implementacijom u svojim hotelima.",
+      en: "The HUP Zagreb hotel company, with implementation across its hotels.",
     },
   },
   {
     id: "etecsa-cuba",
     client: "ETECSA",
     partner: "Ericsson Nikola Tesla",
-    sites: ["Atlantico Habana", "Club Karey", "Trinidad del Mar", "Blau Colonial", "Kawama"],
+    sites: ["Atlantico Habana", "Club Karey", "Trinidad del Mar", "Blau Colonial", "Kawama", "Complejo Hotelero Atlántico"],
     sector: { hr: "Hotelijerstvo", en: "Hospitality" },
     location: { hr: "Kuba", en: "Cuba" },
-    serviceId: "call-accounting",
     accent: "amber",
     featured: true,
-    title: { hr: "Hotelski sustavi na Kubi", en: "Hotel systems in Cuba" },
+    title: { hr: "Hoteli na Kubi", en: "Hotels in Cuba" },
     summary: {
-      hr: "U suradnji s tvrtkom Ericsson Nikola Tesla isporučili smo CAM rješenja za hotele operatera ETECSA na Kubi.",
-      en: "Together with Ericsson Nikola Tesla we delivered CAM solutions for ETECSA-connected hotels in Cuba.",
-    },
-    scope: {
-      hr: ["Implementacija na više hotelskih lokacija", "Suradnja s međunarodnim partnerom", "Lokalizacija i podrška na daljinu"],
-      en: ["Rollout across several hotel sites", "Delivered with an international partner", "Localisation and remote support"],
+      hr: "U suradnji s tvrtkom Ericsson Nikola Tesla, implementacija u ETECSA hotelima na Kubi.",
+      en: "Together with Ericsson Nikola Tesla, implementation in ETECSA hotels in Cuba.",
     },
   },
   {
     id: "agrokor",
     client: "Koncern Agrokor",
-    sites: ["Agrokor", "Belje", "Jamnica", "Konzum", "Ledo", "PIK Vrbovec", "Zvijezda", "Frikom"],
+    sites: ["Agrokor", "Agroprerada", "Belje", "Jamnica", "Konzum", "Ledo", "PIK Vrbovec", "Zvijezda", "Frikom"],
     sector: { hr: "Industrija i trgovina", en: "Industry and retail" },
     location: { hr: "Hrvatska, Srbija, BiH", en: "Croatia, Serbia, Bosnia and Herzegovina" },
-    serviceId: "call-accounting",
     accent: "steel",
     featured: true,
-    title: { hr: "Telefonski troškovi na razini koncerna", en: "Telephone costs across a corporate group" },
+    title: { hr: "Koncern Agrokor", en: "Agrokor group" },
     summary: {
-      hr: "Implementacija u tvrtkama koncerna Agrokor, s obračunom troškova po tvrtki, odjelu i korisniku.",
-      en: "Implementation across Agrokor group companies, with costs billed by company, department and user.",
-    },
-    scope: {
-      hr: ["Mrežna verzija za više tvrtki i lokacija", "Izvještaji po organizacijskim jedinicama", "Dugoročna podrška i održavanje"],
-      en: ["Network edition for multiple companies and sites", "Reports by organisational unit", "Long-term support and maintenance"],
-    },
-  },
-  {
-    id: "healthcare-public",
-    client: "KBC Zagreb, KBC Rijeka, Zračna luka Split",
-    sector: { hr: "Zdravstvo i infrastruktura", en: "Healthcare and infrastructure" },
-    location: { hr: "Hrvatska", en: "Croatia" },
-    serviceId: "call-accounting",
-    accent: "amber",
-    title: { hr: "Kontrola troškova u velikim ustanovama", en: "Cost control in large institutions" },
-    summary: {
-      hr: "Obračun telefonskog prometa za kliničke bolničke centre i zračnu luku, ustanove s mnogo odjela, korisnika i lokala.",
-      en: "Telephone traffic billing for university hospital centres and an airport, organisations with many departments, users and extensions.",
-    },
-    scope: {
-      hr: ["Velik broj lokala i korisnika", "Izvještaji po odjelima", "Podrška 0–24"],
-      en: ["Large numbers of extensions and users", "Department-level reporting", "24/7 support"],
+      hr: "Koncern Agrokor s implementacijom u svojim tvrtkama.",
+      en: "The Agrokor group, with implementation across its companies.",
     },
   },
 ];

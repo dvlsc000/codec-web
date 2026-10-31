@@ -185,7 +185,7 @@
 }
 
 @utility section-y {
-  padding-block: clamp(5rem, 3rem + 8vw, 10rem);
+  padding-block: clamp(3.75rem, 2rem + 8vw, 10rem);
 }
 
 /* ================================================================== */

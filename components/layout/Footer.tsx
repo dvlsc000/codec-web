@@ -14,10 +14,10 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-24 overflow-hidden border-t border-line">
+    <footer className="relative mt-16 overflow-hidden border-t border-line md:mt-24">
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--color-ember),var(--color-steel),transparent)] opacity-50" />
-      <div className="container-site grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:py-20">
-        <div className="max-w-xs">
+      <div className="container-site grid grid-cols-2 gap-x-6 gap-y-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:gap-12 md:py-20">
+        <div className="col-span-2 max-w-xs md:col-span-1">
           <Link href={href(locale, "home")} aria-label="Codec" className="inline-block rounded-lg">
             <Logo className="h-8" />
           </Link>
@@ -43,7 +43,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           ))}
         </FooterCol>
 
-        <FooterCol title={t.contactTitle}>
+        <FooterCol title={t.contactTitle} className="col-span-2 md:col-span-1">
           <li><FooterLink href={`mailto:${contact.emails.general}`}>{contact.emails.general}</FooterLink></li>
           <li><FooterLink href={`mailto:${contact.emails.support}`}>{contact.emails.support}</FooterLink></li>
           <li><FooterLink href={`tel:${contact.phones.main.href}`}>{contact.phones.main.display}</FooterLink></li>
@@ -79,9 +79,9 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   );
 }
 
-function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
+function FooterCol({ title, children, className = "" }: { title: string; children: React.ReactNode; className?: string }) {
   return (
-    <div>
+    <div className={className}>
       <h2 className="font-sans text-sm font-medium tracking-normal text-subtle">{title}</h2>
       <ul className="mt-5 space-y-3 text-[0.95rem]">{children}</ul>
     </div>

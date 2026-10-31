@@ -16,6 +16,7 @@ export function PageHero({
   accent = "ember",
   children,
   visual,
+  visualBare = false,
 }: {
   title: string;
   lead?: string;
@@ -25,9 +26,11 @@ export function PageHero({
   children?: ReactNode;
   /** Optional illustration shown beside the title on large screens. */
   visual?: ReactNode;
+  /** Show the visual without the glass panel around it. */
+  visualBare?: boolean;
 }) {
   return (
-    <section data-accent={accent} className="relative isolate overflow-hidden pb-16 pt-36 md:pb-24 md:pt-48">
+    <section data-accent={accent} className="relative isolate overflow-hidden pb-12 pt-28 md:pb-24 md:pt-48">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-1/3 right-[-10%] size-[55vw] max-w-[760px] rounded-full bg-[radial-gradient(closest-side,rgb(var(--accent-rgb)/0.24),transparent)] blur-2xl" />
         <div className="pixel-grid absolute inset-0 [mask-image:radial-gradient(ellipse_60%_70%_at_70%_20%,#000,transparent)]" />
@@ -49,7 +52,7 @@ export function PageHero({
           </ol>
         </m.nav>
         <m.h1
-          className="text-h1 mt-8 max-w-[18ch]"
+          className="text-h1 mt-6 max-w-[18ch] md:mt-8"
           initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1.1, ease, delay: 0.15 }}
@@ -77,7 +80,7 @@ export function PageHero({
             initial={{ opacity: 0, y: 30, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 1.2, ease, delay: 0.35 }}
-            className="glass edge-glow relative rounded-[var(--radius-panel)] p-5 md:p-7"
+            className={visualBare ? "relative" : "glass edge-glow relative rounded-[var(--radius-panel)] p-5 md:p-7"}
           >
             {visual}
           </m.div>

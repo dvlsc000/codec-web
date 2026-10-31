@@ -85,7 +85,7 @@ export default async function ServicePage({ params }: Props) {
       </PageHero>
 
       {/* Intro + outcomes */}
-      <section className="container-site pb-24 md:pb-32">
+      <section className="container-site pb-16 md:pb-32">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-20">
           <RevealGroup className="space-y-6">
             <RevealItem><p className="text-h3 max-w-[30ch] font-medium text-fg">{l(s.tagline, locale)}</p></RevealItem>
@@ -114,18 +114,20 @@ export default async function ServicePage({ params }: Props) {
       </section>
 
       {/* Features */}
-      <section aria-labelledby="features-title" className="container-site pb-24 md:pb-32">
+      <section aria-labelledby="features-title" className="container-site pb-16 md:pb-32">
         <SectionHeader id="features-title" title={t.featuresTitle} align="stack" />
         <RevealGroup as="ul" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
           {s.features.map((f) => (
             <RevealItem as="li" key={f.title.en}>
               <SpotlightCard accent={s.accent} className="h-full">
-                <div className="p-7">
-                  <span className="grid size-11 place-items-center rounded-xl border border-line bg-night-2 text-[var(--accent)]">
+                <div className="flex gap-4 p-5 sm:block sm:p-7">
+                  <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-line bg-night-2 text-[var(--accent)]">
                     <Icon name={f.icon ?? s.icon} size={21} />
                   </span>
-                  <h3 className="mt-6 text-lg font-semibold">{l(f.title, locale)}</h3>
-                  <p className="mt-2 text-muted">{l(f.text, locale)}</p>
+                  <div>
+                    <h3 className="text-lg font-semibold sm:mt-6">{l(f.title, locale)}</h3>
+                    <p className="mt-1.5 text-muted sm:mt-2">{l(f.text, locale)}</p>
+                  </div>
                 </div>
               </SpotlightCard>
             </RevealItem>
@@ -135,13 +137,23 @@ export default async function ServicePage({ params }: Props) {
 
       {/* Editions */}
       {s.editions && (
-        <section aria-labelledby="editions-title" className="container-site pb-24 md:pb-32">
+        <section aria-labelledby="editions-title" className="container-site pb-16 md:pb-32">
           <SectionHeader id="editions-title" title={t.editionsTitle} align="stack" />
-          <RevealGroup as="ul" className="grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line md:grid-cols-3">
+          <RevealGroup as="ul" data-accent={s.accent} className="grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line md:grid-cols-3">
             {s.editions.map((e) => (
               <RevealItem as="li" key={e.title.en} className="bg-night-2 p-8">
                 <h3 className="text-h3">{l(e.title, locale)}</h3>
                 <p className="mt-3 text-muted">{l(e.text, locale)}</p>
+                {e.points && (
+                  <ul className="mt-6 space-y-2.5">
+                    {l(e.points, locale).map((pt) => (
+                      <li key={pt} className="flex gap-3 text-[0.95rem] text-fg/85">
+                        <span aria-hidden="true" className="mt-[0.55em] size-1.5 shrink-0 rounded-[1px] bg-ember" />
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </RevealItem>
             ))}
           </RevealGroup>
@@ -150,7 +162,7 @@ export default async function ServicePage({ params }: Props) {
 
       {/* Use cases */}
       {s.useCases && (
-        <section aria-labelledby="usecases-title" className="border-y border-line bg-night-2/50 py-24 md:py-32">
+        <section aria-labelledby="usecases-title" className="border-y border-line bg-night-2/50 py-16 md:py-32">
           <div className="container-site grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
             <Reveal><h2 id="usecases-title" className="text-h2">{t.useCasesTitle}</h2></Reveal>
             <RevealGroup as="dl" className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
@@ -167,7 +179,7 @@ export default async function ServicePage({ params }: Props) {
 
       {/* Related projects */}
       {related.length > 0 && (
-        <section aria-labelledby="related-title" className="container-site py-24 md:py-32">
+        <section aria-labelledby="related-title" className="container-site py-16 md:py-32">
           <SectionHeader id="related-title" title={t.projectsTitle} action={<ButtonLink href={href(locale, "references")} variant="secondary" icon="arrowRight">{dict.home.references.all}</ButtonLink>} />
           <RevealGroup as="ul" className="grid gap-4 md:grid-cols-2 lg:gap-5">
             {related.slice(0, 4).map((p) => (
@@ -181,7 +193,7 @@ export default async function ServicePage({ params }: Props) {
 
       {/* FAQ */}
       {faq && (
-        <section aria-labelledby="faq-title" className="container-site py-24 md:py-32">
+        <section aria-labelledby="faq-title" className="container-site py-16 md:py-32">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
             <Reveal><h2 id="faq-title" className="text-h2">{t.faqTitle}</h2></Reveal>
             <Reveal><Faq items={faq} /></Reveal>

@@ -93,14 +93,18 @@ function Slot(props: {
   useEffect(() => arrival.set(enter.get()), [arrival, enter]);
 
   return (
-    <div
-      ref={ref}
-      className={pinned ? "sticky" : ""}
-      // The gap after each panel is the scroll distance over which the next one covers it.
-      style={pinned ? { top, marginBottom: last ? 0 : "62vh" } : undefined}
-    >
-      <Panel {...props} enter={enter} leave={leave} last={last} />
-    </div>
+    <>
+      <div ref={ref} className={pinned ? "sticky" : ""} style={pinned ? { top } : undefined}>
+        <Panel {...props} enter={enter} leave={leave} last={last} />
+      </div>
+      {/*
+        Scroll distance over which the next panel rises over this one. It must be a
+        separate element: as a margin on the sticky panel it would count as part of
+        the panel and release earlier panels before the last one covers them.
+        After the last panel, a shorter spacer lets the finished deck rest a moment.
+      */}
+      {pinned && <div aria-hidden="true" style={{ height: last ? "28vh" : "62vh" }} />}
+    </>
   );
 }
 

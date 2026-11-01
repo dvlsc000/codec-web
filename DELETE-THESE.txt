@@ -1,0 +1,9 @@
+Delete these leftovers from the repo (run in the codec-web folder):
+
+  git rm public/clients/*.svg brand/client_icons.py
+
+Then:
+  npm install
+  git add -A
+  git commit -m "Brochure, spam protection, analytics, fonts, a11y, team/testimonials"
+  git push

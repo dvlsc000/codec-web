@@ -12,6 +12,10 @@ export const contactSchema = z.object({
   locale: z.enum(["hr", "en"]).optional().default("hr"),
   /** Honeypot — must stay empty. */
   website: z.string().max(0).optional().default(""),
+  /** Milliseconds the form was open before submitting (time trap). */
+  elapsed: z.number().int().nonnegative().optional(),
+  /** Cloudflare Turnstile token, when enabled. */
+  turnstile: z.string().max(4096).optional(),
 });
 
 export type ContactInput = z.input<typeof contactSchema>;

@@ -124,8 +124,19 @@ export const services: Service[] = [
     ],
     download: {
       label: { hr: "Preuzmite prospekt (PDF)", en: "Download brochure (PDF)" },
-      href: "https://codec-info.hr/Resources/Call%20Accounting%20Manager.pdf",
+      href: { hr: "/brochures/codec-call-accounting-manager-hr.pdf", en: "/brochures/codec-call-accounting-manager-en.pdf" },
+      meta: { hr: "PDF · 4 stranice", en: "PDF · 4 pages" },
+      cover: { hr: "/brochures/codec-call-accounting-manager-hr.jpg", en: "/brochures/codec-call-accounting-manager-en.jpg" },
     },
+    specs: [
+      { label: { hr: "Platforma", en: "Platform" }, value: { hr: "Windows aplikacija; prikupljanje podataka radi kao Windows servis", en: "Windows application; data collection runs as a Windows service" } },
+      { label: { hr: "Baza podataka", en: "Database" }, value: { hr: "MS SQL, uz automatsku dnevnu sigurnosnu kopiju", en: "MS SQL, with an automatic daily backup" } },
+      { label: { hr: "Veza s centralom", en: "Phone system link" }, value: { hr: "Serijska veza ili TCP/IP; za Cisco i Asterisk i preko baze podataka (SQL / MySQL)", en: "Serial link or TCP/IP; for Cisco and Asterisk also via a database interface (SQL / MySQL)" } },
+      { label: { hr: "Komunikacija", en: "Communication" }, value: { hr: "Jednosmjerna ili dvosmjerna", en: "One-way or two-way" } },
+      { label: { hr: "Pristup podacima", en: "Data access" }, value: { hr: "Klijent/poslužitelj; u mrežnoj verziji i putem web sučelja", en: "Client/server; in the network edition also through a web interface" } },
+      { label: { hr: "Podržane centrale", en: "Supported phone systems" }, value: { hr: "Ericsson, Aastra, Avaya, Cisco, Asterisk, Siemens, Panasonic", en: "Ericsson, Aastra, Avaya, Cisco, Asterisk, Siemens, Panasonic" } },
+      { label: { hr: "Verzije", en: "Editions" }, value: { hr: "Osnovna, hotelska i mrežna", en: "Standard, hotel and network" } },
+    ],
     seo: {
       title: { hr: "Call Accounting Manager — obračun telefonskih troškova", en: "Call Accounting Manager — telephone cost billing" },
       keywords: {
@@ -160,8 +171,8 @@ export const services: Service[] = [
       ],
     },
     outcomes: {
-      hr: ["Manje ručnog rada i pogrešaka", "Sustavi koji međusobno razgovaraju", "Podaci dostupni u stvarnom vremenu"],
-      en: ["Less manual work and fewer errors", "Systems that talk to each other", "Data available in real time"],
+      hr: ["Manje ručnog rada i pogrešaka", "Sustavi koji međusobno razgovaraju", "Ažurni podaci ondje gdje vam trebaju"],
+      en: ["Less manual work and fewer errors", "Systems that talk to each other", "Up-to-date data where you need it"],
     },
     features: [
       {
@@ -253,16 +264,16 @@ export const services: Service[] = [
       ],
     },
     outcomes: {
-      hr: ["Nijedan propušten poziv", "Dostupnost 0–24, i vikendom", "Tim rasterećen rutinskih upita"],
-      en: ["No missed calls", "Available 24/7, weekends included", "A team freed from routine questions"],
+      hr: ["Znatno manje propuštenih poziva", "Dostupnost 0–24, i vikendom", "Tim rasterećen rutinskih upita"],
+      en: ["Far fewer missed calls", "Available 24/7, weekends included", "A team freed from routine questions"],
     },
     features: [
       {
         icon: "chat",
         title: { hr: "Prirodan razgovor", en: "Natural conversation" },
         text: {
-          hr: "Agent razumije hrvatski i engleski, prepoznaje namjeru i prilagođava ton vašem brendu.",
-          en: "The agent understands Croatian and English, recognises intent and adapts its tone to your brand.",
+          hr: "Agent razumije hrvatski i engleski, prepoznaje namjeru i govori tonom koji dogovorimo s vama.",
+          en: "The agent understands Croatian and English, recognises intent and speaks in the tone we agree with you.",
         },
       },
       {
@@ -285,8 +296,8 @@ export const services: Service[] = [
         icon: "link",
         title: { hr: "Povezan s vašim sustavima", en: "Connected to your systems" },
         text: {
-          hr: "Čita i upisuje podatke u vaše baze podataka, ERP, hotelski i ordinacijski softver te telefonsku centralu.",
-          en: "Reads and writes data in your databases, ERP, hotel or practice software and phone system.",
+          hr: "Čita i upisuje podatke u vaše sustave — baze podataka, ERP, hotelski ili ordinacijski softver — ondje gdje sustav to omogućuje.",
+          en: "Reads and writes data in your systems — databases, ERP, hotel or practice software — wherever the system allows it.",
         },
       },
       {

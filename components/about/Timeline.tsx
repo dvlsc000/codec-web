@@ -39,8 +39,8 @@ function Step({ index, title, text }: { index: number; title: string; text: stri
       >
         <span className="size-2 rounded-[1.5px] transition-colors duration-500" style={{ background: lit ? "var(--color-ember)" : "var(--color-line-strong)" }} />
       </span>
-      <div className="transition-opacity duration-500" style={{ opacity: lit ? 1 : 0.45 }}>
-        <span className="font-display text-sm tabular-nums text-subtle">{String(index + 1).padStart(2, "0")}</span>
+      <div className="transition-opacity duration-500" style={{ opacity: lit ? 1 : 0.72 }}>
+        <span className="font-display text-sm tabular-nums text-muted">{String(index + 1).padStart(2, "0")}</span>
         <h3 className="text-h2 mt-2 !text-[clamp(1.4rem,1.1rem+1.2vw,2.1rem)]">{title}</h3>
         <p className="mt-3 max-w-[46ch] text-lg text-muted">{text}</p>
       </div>

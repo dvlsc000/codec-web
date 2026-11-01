@@ -14,6 +14,8 @@ import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { StatsRow } from "@/components/sections/StatsRow";
 import { ProjectCard } from "@/components/sections/ProjectCard";
 import { CtaBand } from "@/components/sections/CtaBand";
+import { Testimonials } from "@/components/people/Testimonials";
+import { testimonials } from "@/content/people";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ButtonLink } from "@/components/ui/Button";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
@@ -99,6 +101,8 @@ export default async function HomePage({ params }: LocaleParams) {
           </SwipeRail>
         </Reveal>
       </section>
+
+      <Testimonials items={testimonials} locale={locale} title={dict.common.testimonials} className="pb-[clamp(3.75rem,2rem+8vw,10rem)]" />
 
       <CtaBand
         title={dict.cta.title}

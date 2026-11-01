@@ -55,7 +55,9 @@ export function OfficeMap({ lat, lng, title, subtitle, labels }: { lat: number; 
     const start = async () => {
       setState("loading");
       try {
-        const maplibre = (await import("maplibre-gl")).default;
+        const maplibre = await import("maplibre-gl");
+        // Worker is served from /public (copied on install by scripts/copy-map-worker.mjs).
+        maplibre.setWorkerUrl("/vendor/maplibre-gl-worker.mjs");
         if (cancelled || !holder.current) return;
 
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -199,7 +201,7 @@ function recolor(map: MapLibreMap) {
     const id = layer.id.toLowerCase();
     const set = (prop: string, value: unknown) => {
       try {
-        map.setPaintProperty(layer.id, prop, value);
+        map.setPaintProperty(layer.id, prop as never, value as never);
       } catch {
         /* property not valid for this layer */
       }

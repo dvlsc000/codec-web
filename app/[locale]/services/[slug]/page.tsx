@@ -77,7 +77,7 @@ export default async function ServicePage({ params }: Props) {
         <div className="flex flex-wrap gap-3">
           <ButtonLink href={contactHref} icon="arrowRight">{dict.common.bookCall}</ButtonLink>
           {s.download && (
-            <ButtonLink href={s.download.href} variant="secondary" icon="download" target="_blank" rel="noopener">
+            <ButtonLink href={l(s.download.href, locale)} variant="secondary" icon="download" target="_blank" rel="noopener">
               {l(s.download.label, locale)}
             </ButtonLink>
           )}
@@ -157,6 +157,56 @@ export default async function ServicePage({ params }: Props) {
               </RevealItem>
             ))}
           </RevealGroup>
+        </section>
+      )}
+
+      {/* Technical specifications + brochure */}
+      {s.specs && (
+        <section aria-labelledby="specs-title" className="container-site pb-16 md:pb-32">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+            <div className="lg:sticky lg:top-32 lg:self-start">
+              <Reveal>
+                <h2 id="specs-title" className="text-h2">{t.specsTitle}</h2>
+                <p className="text-lead mt-5 max-w-[36ch]">{t.specsLead}</p>
+              </Reveal>
+              {s.download && (
+                <Reveal>
+                  <a
+                    href={l(s.download.href, locale)}
+                    target="_blank"
+                    rel="noopener"
+                    data-accent={s.accent}
+                    className="edge-glow group mt-10 flex items-center gap-5 rounded-[var(--radius-card)] border border-line bg-night-2 p-4 pr-6 transition-colors duration-500 hover:border-line-strong"
+                  >
+                    {s.download.cover && (
+                      <span className="relative block aspect-[210/297] w-20 shrink-0 overflow-hidden rounded-md border border-line shadow-[0_18px_40px_-18px_rgb(0_0_0/0.9)] transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-3 group-hover:scale-105">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={l(s.download.cover, locale)} alt="" width={160} height={226} loading="lazy" className="size-full object-cover" />
+                      </span>
+                    )}
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-xs font-medium text-[var(--accent)]">{t.brochureTitle}{s.download.meta ? ` · ${l(s.download.meta, locale)}` : ""}</span>
+                      <span className="mt-1.5 block font-display text-[1.02rem] font-medium leading-snug tracking-[-0.02em]">{l(s.download.label, locale)}</span>
+                      <span className="mt-1.5 block text-sm leading-snug text-muted">{t.brochureText}</span>
+                    </span>
+                    <span aria-hidden="true" className="grid size-10 shrink-0 place-items-center rounded-full border border-line text-fg transition-colors duration-300 group-hover:border-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-night">
+                      <Icon name="download" size={17} />
+                    </span>
+                  </a>
+                </Reveal>
+              )}
+            </div>
+            <Reveal>
+              <dl className="overflow-hidden rounded-[var(--radius-card)] border border-line">
+                {s.specs.map((r, i) => (
+                  <div key={r.label.en} className={`grid gap-1 px-6 py-5 sm:grid-cols-[12rem_1fr] sm:gap-6 md:px-8 ${i % 2 ? "bg-night-2/40" : "bg-night-2"} ${i ? "border-t border-line" : ""}`}>
+                    <dt className="text-sm text-subtle sm:pt-0.5">{l(r.label, locale)}</dt>
+                    <dd className="text-fg/90">{l(r.value, locale)}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
         </section>
       )}
 

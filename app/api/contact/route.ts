@@ -2,24 +2,13 @@ import { NextResponse } from "next/server";
 import { contactSchema } from "@/lib/contact/schema";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
-
-const hits = new Map<string, number[]>();
-const WINDOW_MS = 10 * 60 * 1000;
-const MAX_PER_WINDOW = 5;
-
-function rateLimited(ip: string) {
-  const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  recent.push(now);
-  hits.set(ip, recent);
-  return recent.length > MAX_PER_WINDOW;
-}
+import { MIN_FILL_MS, rateLimited, verifyTurnstile } from "@/lib/contact/guard";
 
 const escape = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
 export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  if (rateLimited(ip)) return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
+  if (await rateLimited(ip)) return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
 
   let body: unknown;
   try {
@@ -38,6 +27,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "validation", issues: parsed.error.issues.map((i) => i.path.join(".")) }, { status: 400 });
   }
   const d = parsed.data;
+
+  // Submitted faster than a person can type: treat as a bot, answer quietly.
+  if (d.elapsed !== undefined && d.elapsed < MIN_FILL_MS) return NextResponse.json({ ok: true });
+  if (!(await verifyTurnstile(d.turnstile, ip))) {
+    return NextResponse.json({ ok: false, error: "challenge_failed" }, { status: 403 });
+  }
   const serviceNames = d.services.map((id) => services.find((s) => s.id === id)?.title.hr ?? id);
 
   const subject = `Novi upit s weba — ${d.name}${d.company ? ` (${d.company})` : ""}`;

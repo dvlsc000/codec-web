@@ -10,6 +10,7 @@ const en: Dictionary = {
   },
   common: {
     skipToContent: "Skip to content",
+    testimonials: "What clients say",
     menu: "Menu",
     closeMenu: "Close menu",
     language: "Language",
@@ -96,6 +97,10 @@ const en: Dictionary = {
     featuresTitle: "What you get",
     outcomesTitle: "The result",
     editionsTitle: "Editions",
+    specsTitle: "Technical specifications",
+    specsLead: "Everything your IT team needs to know before rollout.",
+    brochureTitle: "Brochure",
+    brochureText: "Features, editions and technical details in one place — for you and your team.",
     useCasesTitle: "Where it fits",
     faqTitle: "Frequently asked questions",
     projectsTitle: "In practice",
@@ -108,6 +113,9 @@ const en: Dictionary = {
     pageLead: "A Zagreb technology company combining long experience in business software with the latest AI tools.",
     metaDescription: "Codec informatika d.o.o. from Zagreb: a team that built systems for hotels, hospitals and corporate groups, now building AI voice agents and automation.",
     storyTitle: "Our story",
+    numbersLabel: "Codec in numbers",
+    teamTitle: "The people behind Codec",
+    teamLead: "A small team that knows every system it delivers — from the first conversation to support.",
     manifesto: "We build technology companies can rely on around the clock — from telephone exchanges to artificial intelligence.",
     footprintTitle: "Where our solutions run",
     footprintLead: "Each square is one reference client — hotels, hospitals, banks and corporate groups in four countries.",
@@ -231,7 +239,7 @@ const en: Dictionary = {
     pageTitle: "Privacy policy",
     pageLead: "How Codec informatika d.o.o. collects and processes personal data on this website.",
     metaDescription: "Privacy policy of Codec informatika d.o.o.",
-    updated: "Last updated: 31 October 2026.",
+    updated: "Last updated: 1 November 2026.",
     sections: [
       {
         title: "Data controller",
@@ -244,6 +252,14 @@ const en: Dictionary = {
       {
         title: "Purpose and legal basis",
         body: "We process data only to respond to your enquiry, based on your consent and on steps taken prior to entering into a contract.",
+      },
+      {
+        title: "Processors and third parties",
+        body: "The site is served through Vercel (Vercel Inc.), which briefly processes technical data such as IP addresses to operate and secure the service. Contact-form messages are delivered by email through Resend. Where enabled, spam protection is provided by Cloudflare Turnstile. The map on the Contact page is displayed by OpenFreeMap; when the map loads, your browser sends it your IP address to fetch the map tiles. For processors that may transfer data outside the EU, standard contractual clauses apply.",
+      },
+      {
+        title: "Visitor analytics",
+        body: "We measure visits with Vercel Web Analytics, which sets no cookies and does not track visitors across pages or devices; data is aggregated and anonymised. The legal basis is our legitimate interest in understanding and improving the site.",
       },
       {
         title: "Retention",

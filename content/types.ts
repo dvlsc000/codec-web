@@ -47,7 +47,10 @@ export interface Service {
   editions?: { title: Localized; text: Localized; points?: Localized<string[]> }[];
   useCases?: { title: Localized; text: Localized }[];
   faq?: FaqItem[];
-  download?: { label: Localized; href: string };
+  /** Downloadable file, e.g. a product brochure (one file per language). */
+  download?: { label: Localized; href: Localized; meta?: Localized; cover?: Localized };
+  /** Technical specification rows, shown as a table. */
+  specs?: { label: Localized; value: Localized }[];
   seo?: { title?: Localized; description?: Localized; keywords?: Localized<string[]> };
 }
 

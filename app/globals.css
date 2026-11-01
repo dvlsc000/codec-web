@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* Self-hosted, subset web fonts (built by brand/fonts/subset.py):
+   Latin + Croatian letters only, weight axis 400–600. ~60 KB in total. */
+@font-face { font-family: "Inter Variable"; font-style: normal; font-display: swap; font-weight: 400 600;
+  src: url("/fonts/inter-latin.woff2") format("woff2-variations"), url("/fonts/inter-latin.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2190, U+2192, U+2212, U+2215; }
+@font-face { font-family: "Inter Variable"; font-style: normal; font-display: swap; font-weight: 400 600;
+  src: url("/fonts/inter-hr.woff2") format("woff2-variations"), url("/fonts/inter-hr.woff2") format("woff2");
+  unicode-range: U+0106-0107, U+010C-010D, U+0110-0111, U+0160-0161, U+017D-017E; }
+@font-face { font-family: "Unbounded Variable"; font-style: normal; font-display: swap; font-weight: 400 600;
+  src: url("/fonts/unbounded-latin.woff2") format("woff2-variations"), url("/fonts/unbounded-latin.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2190, U+2192, U+2212, U+2215; }
+@font-face { font-family: "Unbounded Variable"; font-style: normal; font-display: swap; font-weight: 400 600;
+  src: url("/fonts/unbounded-hr.woff2") format("woff2-variations"), url("/fonts/unbounded-hr.woff2") format("woff2");
+  unicode-range: U+0106-0107, U+010C-010D, U+0110-0111, U+0160-0161, U+017D-017E; }
+
 /* ================================================================== */
 /* Codec design tokens                                                 */
 /* Derived from the logo: graphite + steel, with signal orange pixels. */
@@ -17,7 +32,7 @@
   /* Text */
   --color-fg: #f1f2f4;
   --color-muted: #a3a7b0;
-  --color-subtle: #757a85;
+  --color-subtle: #868b95;
 
   /* Brand */
   --color-charcoal: #3a3d46;

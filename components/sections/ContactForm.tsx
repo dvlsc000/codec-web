@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
-import { useEffect, useId, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { track } from "@vercel/analytics";
+import { Turnstile } from "@/components/contact/Turnstile";
 import type { Accent } from "@/content/types";
 import type { Dictionary } from "@/content/dictionaries/hr";
 import { Button } from "@/components/ui/Button";
@@ -31,6 +33,13 @@ export function ContactForm({
   const [selected, setSelected] = useState<string[]>([]);
   const [errors, setErrors] = useState<Partial<Record<Field, string>>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const openedAt = useRef(0);
+  const [token, setToken] = useState("");
+  const [round, setRound] = useState(0);
+
+  useEffect(() => {
+    if (status === "idle") openedAt.current = Date.now();
+  }, [status]);
 
   // Preselect a service when arriving from a service page (?service=id).
   useEffect(() => {
@@ -54,6 +63,8 @@ export function ContactForm({
       website: String(fd.get("website") ?? ""),
       services: selected,
       locale,
+      elapsed: Math.max(0, Date.now() - openedAt.current),
+      turnstile: token || undefined,
     };
 
     const next: Partial<Record<Field, string>> = {};
@@ -73,10 +84,14 @@ export function ContactForm({
       const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error(String(res.status));
       setStatus("success");
+      track("contact_submit", { services: selected.join(",") || "none", locale });
       form.reset();
       setSelected([]);
     } catch {
       setStatus("error");
+    } finally {
+      setToken("");
+      setRound((r) => r + 1);
     }
   }
 
@@ -201,6 +216,8 @@ export function ContactForm({
                 <input name="website" tabIndex={-1} autoComplete="off" />
               </label>
             </div>
+
+            <Turnstile onToken={setToken} language={locale} resetKey={round} />
 
             <div>
               <label className="flex cursor-pointer items-start gap-3 text-sm text-muted">

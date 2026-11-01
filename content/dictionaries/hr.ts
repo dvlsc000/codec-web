@@ -12,6 +12,7 @@ const hr = {
   },
   common: {
     skipToContent: "Preskoči na sadržaj",
+    testimonials: "Što kažu klijenti",
     menu: "Izbornik",
     closeMenu: "Zatvori izbornik",
     language: "Jezik",
@@ -99,6 +100,10 @@ const hr = {
     featuresTitle: "Što dobivate",
     outcomesTitle: "Rezultat",
     editionsTitle: "Verzije",
+    specsTitle: "Tehnički zahtjevi",
+    specsLead: "Sve što vaš IT tim treba znati prije uvođenja.",
+    brochureTitle: "Prospekt",
+    brochureText: "Funkcije, verzije i tehnički podaci na jednom mjestu — za vas i vaš tim.",
     useCasesTitle: "Gdje se koristi",
     faqTitle: "Česta pitanja",
     projectsTitle: "Iz prakse",
@@ -111,6 +116,9 @@ const hr = {
     pageLead: "Zagrebačka tehnološka tvrtka koja spaja dugogodišnje iskustvo u poslovnom softveru s najnovijim alatima umjetne inteligencije.",
     metaDescription: "Codec informatika d.o.o. iz Zagreba: tim koji je gradio sustave za hotele, bolnice i koncerne, a danas razvija AI glasovne agente i automatizaciju.",
     storyTitle: "Naša priča",
+    numbersLabel: "Codec u brojkama",
+    teamTitle: "Ljudi iza Codeca",
+    teamLead: "Mali tim koji poznaje svaki sustav koji isporučuje — od prvog razgovora do podrške.",
     manifesto: "Gradimo tehnologiju na koju se tvrtke mogu osloniti 24 sata dnevno — od telefonskih centrala do umjetne inteligencije.",
     footprintTitle: "Gdje rade naša rješenja",
     footprintLead: "Svaki kvadratić je jedan referentni klijent — hoteli, bolnice, banke i koncerni u četiri zemlje.",
@@ -234,7 +242,7 @@ const hr = {
     pageTitle: "Zaštita privatnosti",
     pageLead: "Kako Codec informatika d.o.o. prikuplja i obrađuje osobne podatke na ovoj web stranici.",
     metaDescription: "Pravila zaštite privatnosti tvrtke Codec informatika d.o.o.",
-    updated: "Zadnja izmjena: 31. listopada 2026.",
+    updated: "Zadnja izmjena: 1. studenoga 2026.",
     sections: [
       {
         title: "Voditelj obrade",
@@ -247,6 +255,14 @@ const hr = {
       {
         title: "Svrha i pravna osnova",
         body: "Podatke obrađujemo isključivo kako bismo odgovorili na vaš upit, na temelju vaše privole i radi poduzimanja radnji prije sklapanja ugovora.",
+      },
+      {
+        title: "Obrađivači i treće strane",
+        body: "Stranica se poslužuje putem platforme Vercel (Vercel Inc.), koja radi sigurnosti i rada usluge kratkotrajno obrađuje tehničke podatke poput IP adrese. Poruke iz kontakt obrasca dostavljaju se e-poštom putem usluge Resend. Ako je uključena, zaštitu od neželjenih poruka pruža Cloudflare Turnstile. Kartu na stranici Kontakt prikazuje OpenFreeMap, kojem vaš preglednik pri učitavanju karte šalje IP adresu radi dohvata prikaza. S obrađivačima koji podatke mogu prenositi izvan EU-a primjenjuju se standardne ugovorne klauzule.",
+      },
+      {
+        title: "Analitika posjeta",
+        body: "Za mjerenje posjećenosti koristimo Vercel Web Analytics, koji ne postavlja kolačiće i ne prati posjetitelje između stranica i uređaja; podaci su zbirni i anonimizirani. Pravna osnova je naš legitimni interes za razumijevanje i poboljšanje stranice.",
       },
       {
         title: "Čuvanje podataka",

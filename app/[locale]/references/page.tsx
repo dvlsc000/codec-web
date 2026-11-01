@@ -6,6 +6,8 @@ import { href } from "@/lib/i18n/paths";
 import { resolvePage, type LocaleParams } from "@/lib/page";
 import { buildMetadata } from "@/lib/seo";
 import { CtaBand } from "@/components/sections/CtaBand";
+import { Testimonials } from "@/components/people/Testimonials";
+import { testimonials } from "@/content/people";
 import { ClientWall } from "@/components/references/ClientWall";
 import { CountUp } from "@/components/ui/CountUp";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
@@ -114,6 +116,8 @@ export default async function ReferencesPage({ params }: LocaleParams) {
           </Reveal>
         </div>
       </section>
+
+      <Testimonials items={testimonials} locale={locale} title={dict.common.testimonials} className="pb-16 md:pb-32" />
 
       <CtaBand title={t.joinTitle} text={t.joinText} primary={{ label: dict.cta.primary, href: href(locale, "contact") }} />
     </>

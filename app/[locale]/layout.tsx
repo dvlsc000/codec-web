@@ -1,6 +1,5 @@
-import "@fontsource-variable/inter";
-import "@fontsource-variable/unbounded";
 import "../globals.css";
+import { preload } from "react-dom";
 
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
@@ -18,6 +17,7 @@ import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { MobileActionBar } from "@/components/mobile/MobileActionBar";
+import { Analytics } from "@vercel/analytics/next";
 
 type Props = { children: ReactNode; params: Promise<{ locale: string }> };
 
@@ -57,6 +57,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!isLocale(raw)) notFound();
   const locale: Locale = raw;
   const dict = await getDictionary(locale);
+  for (const f of ["inter-latin", "unbounded-latin"]) preload(`/fonts/${f}.woff2`, { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
 
   return (
     <html lang={localeMeta[locale].htmlLang}>
@@ -99,6 +100,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           />
         </MotionProvider>
         <JsonLd data={organizationSchema(locale, dict.meta.siteDescription)} />
+        <Analytics />
       </body>
     </html>
   );

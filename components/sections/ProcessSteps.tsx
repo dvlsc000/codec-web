@@ -78,9 +78,12 @@ export function ProcessSteps({ steps, icons = [] }: { steps: { title: string; te
                       <Icon name={icons[i]} size={20} />
                     </span>
                   )}
-                  <span aria-hidden="true" className={`font-display text-[2.6rem] font-medium leading-none tracking-[-0.06em] transition-colors duration-500 ${state === "active" ? "text-ember/25" : "text-white/[0.05]"}`}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  {/* Decorative numeral drawn with CSS content, so it isn't read as low-contrast text */}
+                  <span
+                    aria-hidden="true"
+                    data-n={String(i + 1).padStart(2, "0")}
+                    className={`font-display text-[2.6rem] font-medium leading-none tracking-[-0.06em] transition-colors duration-500 before:content-[attr(data-n)] ${state === "active" ? "text-ember/25" : "text-white/[0.05]"}`}
+                  />
                 </div>
                 <h3 className={`text-h3 mt-6 transition-colors duration-500 ${state === "todo" ? "text-fg/70" : "text-fg"}`}>{s.title}</h3>
                 <p className={`mt-2.5 leading-relaxed transition-colors duration-500 ${state === "todo" ? "text-muted/70" : "text-muted"}`}>{s.text}</p>

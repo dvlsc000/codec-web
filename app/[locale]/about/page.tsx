@@ -7,6 +7,8 @@ import { resolvePage, type LocaleParams } from "@/lib/page";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/PageHero";
 import { CtaBand } from "@/components/sections/CtaBand";
+import { TeamGrid } from "@/components/people/TeamGrid";
+import { team } from "@/content/people";
 import { MarkConstruction } from "@/components/about/MarkConstruction";
 import { ScrollManifesto } from "@/components/about/ScrollManifesto";
 import { Footprint, type FootprintRow } from "@/components/about/Footprint";
@@ -140,7 +142,7 @@ export default async function AboutPage({ params }: LocaleParams) {
       </section>
 
       {/* 3. Numbers */}
-      <section aria-label={t.storyTitle} className="relative overflow-hidden border-y border-line bg-night-2/60">
+      <section aria-label={t.numbersLabel} className="relative overflow-hidden border-y border-line bg-night-2/60">
         <div aria-hidden="true" className="pixel-grid absolute inset-0 [mask-image:radial-gradient(ellipse_70%_100%_at_50%_100%,#000,transparent)]" />
         <RevealGroup as="dl" className="container-site relative grid divide-y divide-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {stats.map((s) => (
@@ -179,6 +181,21 @@ export default async function AboutPage({ params }: LocaleParams) {
           <Timeline items={t.phases} />
         </div>
       </section>
+
+      {/* Team — hidden until content/people.ts has members */}
+      {team.length > 0 && (
+        <section aria-labelledby="team-title" className="container-site pt-16 md:pt-36">
+          <div className="mb-12 grid gap-6 md:mb-16 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-end">
+            <Reveal>
+              <h2 id="team-title" className="text-h2 max-w-[16ch]">{t.teamTitle}</h2>
+            </Reveal>
+            <Reveal>
+              <p className="text-lead max-w-[46ch]">{t.teamLead}</p>
+            </Reveal>
+          </div>
+          <TeamGrid members={team} locale={locale} />
+        </section>
+      )}
 
       {/* 6. Values */}
       <section aria-labelledby="values-title" className="container-site py-16 md:py-36">

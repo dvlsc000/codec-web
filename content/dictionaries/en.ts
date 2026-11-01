@@ -122,11 +122,11 @@ const en: Dictionary = {
     storyLead: "For years Codec has built and deployed software for companies, hotels and institutions in Croatia and abroad.",
     story: [
       "Our Call Accounting Manager helps companies increase productivity while reducing telephone operating costs.",
-      "Those projects taught us what it means to build systems that never stop and to support them around the clock. Today we apply that know-how to a new generation of solutions.",
+      "Those projects taught us what it means to build systems that never stop and to support them around the clock. We still offer and support Call Accounting Manager, and today we apply the same know-how to a new generation of solutions.",
     ],
     journey: [
-      { label: "Then", title: "Telephony and billing", text: "Capture, pricing and review of calls from phone systems." },
-      { label: "Now", title: "AI and automation", text: "Voice agents, automations, databases and web solutions." },
+      { label: "Proven product", title: "Telephony and billing", text: "Call Accounting Manager — capture, pricing and review of calls from phone systems.", link: "Call Accounting Manager" },
+      { label: "New generation", title: "AI and automation", text: "Voice agents, automations, databases and web solutions.", link: "All services" },
     ],
     notableTitle: "Among our clients",
     notable: ["Agrokor group", "HUP Zagreb", "KBC Zagreb", "KBC Rijeka", "Split Airport", "HBOR", "ETECSA hotels, Cuba"],

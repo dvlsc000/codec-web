@@ -125,11 +125,11 @@ const hr = {
     storyLead: "Codec godinama izrađuje i uvodi programska rješenja u tvrtkama, hotelima i ustanovama u Hrvatskoj i inozemstvu.",
     story: [
       "Naš Call Accounting Manager pomaže tvrtkama povećati produktivnost uz smanjenje telefonskih operativnih troškova.",
-      "Kroz te projekte naučili smo što znači graditi sustave koji rade bez prekida i podržavati ih 0–24. Danas to znanje primjenjujemo na novu generaciju rješenja.",
+      "Kroz te projekte naučili smo što znači graditi sustave koji rade bez prekida i podržavati ih 0–24. Call Accounting Manager i dalje nudimo i podržavamo, a isto iskustvo danas primjenjujemo i na novu generaciju rješenja.",
     ],
     journey: [
-      { label: "Tada", title: "Telefonija i obračun", text: "Prihvat, tarifikacija i pregled poziva s telefonskih centrala." },
-      { label: "Danas", title: "AI i automatizacija", text: "Glasovni agenti, automatizacije, baze podataka i web rješenja." },
+      { label: "Provjereno rješenje", title: "Telefonija i obračun", text: "Call Accounting Manager — prihvat, tarifikacija i pregled poziva s telefonskih centrala.", link: "Call Accounting Manager" },
+      { label: "Nova generacija", title: "AI i automatizacija", text: "Glasovni agenti, automatizacije, baze podataka i web rješenja.", link: "Sve usluge" },
     ],
     notableTitle: "Među našim klijentima",
     notable: ["Koncern Agrokor", "HUP Zagreb", "KBC Zagreb", "KBC Rijeka", "Zračna luka Split", "HBOR", "ETECSA hoteli, Kuba"],

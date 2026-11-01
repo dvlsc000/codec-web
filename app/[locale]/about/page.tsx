@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { allClients, clientCount, countryCount, countryNames } from "@/content/projects";
 import { site } from "@/content/site";
 import { l } from "@/lib/i18n/config";
-import { href } from "@/lib/i18n/paths";
+import Link from "next/link";
+import { href, serviceHref } from "@/lib/i18n/paths";
 import { resolvePage, type LocaleParams } from "@/lib/page";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/PageHero";
@@ -10,7 +11,7 @@ import { CtaBand } from "@/components/sections/CtaBand";
 import { TeamGrid } from "@/components/people/TeamGrid";
 import { team } from "@/content/people";
 import { MarkConstruction } from "@/components/about/MarkConstruction";
-import { ScrollManifesto } from "@/components/about/ScrollManifesto";
+import { Statement } from "@/components/about/Statement";
 import { Footprint, type FootprintRow } from "@/components/about/Footprint";
 import { Timeline } from "@/components/about/Timeline";
 import { CopyField } from "@/components/about/CopyField";
@@ -78,7 +79,7 @@ export default async function AboutPage({ params }: LocaleParams) {
               <span aria-hidden="true" className="size-2 rounded-[1.5px] bg-ember" />
               {t.storyTitle}
             </h2>
-            <ScrollManifesto text={t.manifesto} className="max-w-[20ch] text-[clamp(1.65rem,1rem+2.2vw,2.75rem)]" />
+            <Statement text={t.manifesto} className="max-w-[22ch] text-[clamp(1.4rem,1rem+1.5vw,2.15rem)]" />
           </div>
 
           <div className="lg:pt-12">
@@ -93,26 +94,29 @@ export default async function AboutPage({ params }: LocaleParams) {
               ))}
             </RevealGroup>
 
-            {/* Then → Now */}
-            <RevealGroup as="ol" className="relative mt-12 grid gap-3 sm:grid-cols-2">
+            {/* Two areas we work in today: the proven CAM product and the new generation */}
+            <RevealGroup as="ul" className="relative mt-12 grid gap-3 sm:grid-cols-2">
               {t.journey.map((j, i) => (
                 <RevealItem as="li" key={j.label} className="relative">
-                  <div
-                    data-accent={i === 0 ? "steel" : "ember"}
-                    className={`relative h-full overflow-hidden rounded-[var(--radius-card)] border p-6 ${
-                      i === 0 ? "border-line bg-night-2" : "edge-glow border-ember/30 bg-[linear-gradient(160deg,rgb(255_90_31/0.12),rgb(255_90_31/0.02)_60%)]"
-                    }`}
+                  <Link
+                    href={i === 0 ? serviceHref(locale, "call-accounting") : href(locale, "services")}
+                    data-accent={i === 0 ? "amber" : "ember"}
+                    className="edge-glow group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-[linear-gradient(160deg,rgb(var(--accent-rgb)/0.09),rgb(var(--accent-rgb)/0.015)_60%)] p-6 transition-colors duration-500 hover:border-line-strong"
                   >
-                    <span className={`inline-flex items-center gap-2 text-xs font-medium ${i === 0 ? "text-subtle" : "text-ember"}`}>
-                      <span aria-hidden="true" className={`size-1.5 rounded-[1px] ${i === 0 ? "bg-subtle" : "bg-ember"}`} />
+                    <span className="inline-flex items-center gap-2 text-xs font-medium text-[var(--accent)]">
+                      <span aria-hidden="true" className="size-1.5 rounded-[1px] bg-[var(--accent)]" />
                       {j.label}
                     </span>
                     <h3 className="text-h3 mt-4">{j.title}</h3>
                     <p className="mt-2 text-[0.95rem] leading-relaxed text-muted">{j.text}</p>
-                  </div>
+                    <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium text-fg/85 transition-colors group-hover:text-[var(--accent)]">
+                      {j.link}
+                      <Icon name="arrowRight" size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                  </Link>
                   {i === 0 && (
-                    <span aria-hidden="true" className="absolute -right-6 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-night text-ember sm:grid">
-                      <Icon name="arrowRight" size={16} />
+                    <span aria-hidden="true" className="absolute -right-6 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full border border-line-strong bg-night text-fg/70 sm:grid">
+                      <Icon name="plus" size={15} />
                     </span>
                   )}
                 </RevealItem>

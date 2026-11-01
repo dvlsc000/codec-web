@@ -9,7 +9,6 @@ import { CtaBand } from "@/components/sections/CtaBand";
 import { ClientWall } from "@/components/references/ClientWall";
 import { CountUp } from "@/components/ui/CountUp";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const { locale, dict } = await resolvePage(params);
@@ -26,7 +25,6 @@ export default async function ReferencesPage({ params }: LocaleParams) {
     { value: clientGroups.length, suffix: "", label: t.stats.sectors },
   ];
   const countries = [...new Set(clientGroups.flatMap((g) => g.clients.map((c) => c.country)))].map((c) => l(countryNames[c], locale));
-  const [lead, ...rest] = projects;
 
   return (
     <>
@@ -87,20 +85,13 @@ export default async function ReferencesPage({ params }: LocaleParams) {
             </Reveal>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-5">
-            {lead && (
-              <Reveal className="h-full">
-                <ProjectPanel p={lead} locale={locale} partnerLabel={t.partner} sitesLabel={t.sites} index={1} large />
-              </Reveal>
-            )}
-            <RevealGroup className="grid gap-4 lg:gap-5">
-              {rest.map((p, i) => (
-                <RevealItem key={p.id}>
-                  <ProjectPanel p={p} locale={locale} partnerLabel={t.partner} sitesLabel={t.sites} index={i + 2} />
-                </RevealItem>
-              ))}
-            </RevealGroup>
-          </div>
+          <RevealGroup as="ol" className="overflow-hidden rounded-[var(--radius-panel)] border border-line bg-night-2/80">
+            {projects.map((p, i) => (
+              <RevealItem as="li" key={p.id} className="border-b border-line last:border-b-0">
+                <ProjectRow p={p} locale={locale} partnerLabel={t.partner} sitesLabel={t.sites} index={i + 1} />
+              </RevealItem>
+            ))}
+          </RevealGroup>
         </div>
       </section>
 
@@ -129,68 +120,68 @@ export default async function ReferencesPage({ params }: LocaleParams) {
   );
 }
 
-function ProjectPanel({
+function ProjectRow({
   p,
   locale,
   partnerLabel,
   sitesLabel,
   index,
-  large = false,
 }: {
   p: (typeof projects)[number];
   locale: "hr" | "en";
   partnerLabel: string;
   sitesLabel: string;
   index: number;
-  large?: boolean;
 }) {
   return (
-    <SpotlightCard accent={p.accent} className="h-full">
-      <article className={`relative flex h-full flex-col p-7 ${large ? "md:p-10" : "md:p-8"}`}>
-        {large && (
-          <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-[radial-gradient(closest-side,rgb(var(--accent-rgb)/0.16),transparent)]" />
-        )}
-        <div className="relative flex items-start justify-between gap-4">
-          <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm">
-            <span className="text-[var(--accent)]">{l(p.sector, locale)}</span>
-            <span aria-hidden="true" className="text-subtle">/</span>
-            <span className="text-muted">{l(p.location, locale)}</span>
-          </p>
-          <span className="font-display text-sm tabular-nums text-subtle">{String(index).padStart(2, "0")}</span>
+    <article
+      data-accent={p.accent}
+      className="group relative grid gap-6 p-6 transition-colors duration-500 hover:bg-white/[0.018] md:grid-cols-12 md:gap-8 md:p-10"
+    >
+      {/* accent edge on hover */}
+      <span aria-hidden="true" className="absolute inset-y-6 left-0 w-[2px] origin-center scale-y-0 bg-[var(--accent)] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-y-100 md:inset-y-10" />
+
+      {/* Index + meta */}
+      <div className="flex items-center justify-between gap-4 md:col-span-3 md:flex-col md:items-start md:justify-start">
+        <span className="font-display text-[clamp(2rem,1.4rem+1.6vw,2.75rem)] font-medium leading-none tracking-[-0.05em] text-fg/25 transition-colors duration-500 group-hover:text-[var(--accent)]">
+          {String(index).padStart(2, "0")}
+        </span>
+        <div className="text-right text-sm md:mt-6 md:text-left">
+          <p className="text-[var(--accent)]">{l(p.sector, locale)}</p>
+          <p className="mt-1 text-muted">{l(p.location, locale)}</p>
         </div>
+      </div>
 
-        <h3 className={`relative mt-6 font-display font-medium tracking-[-0.03em] ${large ? "text-[clamp(1.7rem,1.2rem+1.6vw,2.6rem)] leading-[1.08]" : "text-h3 md:text-[1.6rem]"}`}>{l(p.title, locale)}</h3>
-        <p className={`relative mt-4 max-w-[52ch] text-muted ${large ? "text-lg" : ""}`}>{l(p.summary, locale)}</p>
-
+      {/* Story */}
+      <div className="md:col-span-5">
+        <h3 className="font-display text-[clamp(1.4rem,1.15rem+0.9vw,1.95rem)] font-medium leading-[1.12] tracking-[-0.03em]">{l(p.title, locale)}</h3>
+        <p className="mt-3 max-w-[46ch] leading-relaxed text-muted">{l(p.summary, locale)}</p>
         {p.partner && (
-          <p className="relative mt-5 inline-flex items-center gap-2 self-start rounded-full border border-line bg-white/[0.03] px-3 py-1.5 text-sm">
+          <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3 py-1.5 text-sm">
             <span className="text-subtle">{partnerLabel}</span>
             <span className="size-1 rounded-[1px] bg-[var(--accent)]" aria-hidden="true" />
             <span className="font-medium text-fg">{p.partner}</span>
           </p>
         )}
+      </div>
 
-        {p.sites && p.sites.length > 0 && (
-          <div className={`relative mt-auto ${large ? "pt-10" : "pt-8"}`}>
-            {large ? (
-              <p className="mb-5 flex items-end gap-3">
-                <span className="font-display text-[clamp(3.5rem,2.5rem+3vw,5.5rem)] font-medium leading-[0.85] tracking-[-0.05em] text-[var(--accent)]">{p.sites.length}</span>
-                <span className="pb-1 text-sm text-muted">{sitesLabel}</span>
-              </p>
-            ) : (
-              <p className="mb-3 flex items-center justify-between border-t border-line pt-6 text-xs text-subtle">
-                {sitesLabel}
-                <span className="tabular-nums">{p.sites.length}</span>
-              </p>
-            )}
-            <ul className="flex flex-wrap gap-1.5">
-              {p.sites.map((s) => (
-                <li key={s} className="rounded-[6px] border border-line bg-night/60 px-2.5 py-1 text-[0.82rem] text-fg/80">{s}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </article>
-    </SpotlightCard>
+      {/* Included */}
+      {p.sites && p.sites.length > 0 && (
+        <div className="md:col-span-4 md:border-l md:border-line md:pl-8">
+          <p className="flex items-baseline justify-between text-xs text-subtle">
+            {sitesLabel}
+            <span className="font-display text-sm tabular-nums text-fg/70">{p.sites.length}</span>
+          </p>
+          <ul className="mt-4 grid grid-cols-2 gap-x-5 gap-y-2.5">
+            {p.sites.map((site) => (
+              <li key={site} className="flex items-start gap-2.5 text-[0.9rem] leading-snug text-fg/85">
+                <span aria-hidden="true" className="mt-[0.5em] size-[5px] shrink-0 rounded-[1px] bg-[var(--accent)] opacity-70" />
+                {site}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </article>
   );
 }

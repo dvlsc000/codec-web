@@ -17,6 +17,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { MobileActionBar } from "@/components/mobile/MobileActionBar";
 
 type Props = { children: ReactNode; params: Promise<{ locale: string }> };
 
@@ -27,6 +28,7 @@ export function generateStaticParams() {
 
 export const viewport: Viewport = {
   themeColor: "#111215",
+  viewportFit: "cover",
   colorScheme: "dark",
 };
 
@@ -88,6 +90,13 @@ export default async function LocaleLayout({ children, params }: Props) {
             {children}
           </main>
           <Footer locale={locale} dict={dict} />
+          <MobileActionBar
+            bookLabel={dict.common.bookCall}
+            bookHref={href(locale, "contact")}
+            callLabel={dict.contact.callUs}
+            phoneHref={`tel:${site.contact.phones.main.href}`}
+            hideOn={[href(locale, "contact")]}
+          />
         </MotionProvider>
         <JsonLd data={organizationSchema(locale, dict.meta.siteDescription)} />
       </body>

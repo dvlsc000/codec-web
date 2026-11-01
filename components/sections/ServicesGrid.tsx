@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
-import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
+import { Reveal } from "@/components/ui/Reveal";
+import { ServicesSwitcher } from "./ServicesSwitcher";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { ServiceVisual } from "@/components/visuals";
 import type { VisualLabels } from "@/components/visuals/types";
@@ -11,11 +12,17 @@ import type { ServiceCardData } from "@/lib/view";
  * `featured` services take a wide tile (text beside the visual); the rest are
  * tall tiles (visual above text). Alternating wide/narrow rows reads best.
  */
-export function ServicesGrid({ services, learnMore, visuals }: { services: ServiceCardData[]; learnMore: string; visuals: VisualLabels }) {
+export function ServicesGrid({ services, learnMore, visuals, label = "" }: { services: ServiceCardData[]; learnMore: string; visuals: VisualLabels; label?: string }) {
   return (
-    <RevealGroup as="ul" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+    <Reveal>
+    {/* Phones: tabbed switcher */}
+    <div className="md:hidden" aria-label={label}>
+      <ServicesSwitcher services={services} learnMore={learnMore} visuals={visuals} />
+    </div>
+    {/* Tablet and up: bento grid */}
+    <ul className="hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
       {services.map((s) => (
-        <RevealItem as="li" key={s.id} className={s.featured ? "md:col-span-2" : ""}>
+        <li key={s.id} className={s.featured ? "md:col-span-2" : ""}>
           <SpotlightCard accent={s.accent} className="h-full">
             <Link href={s.href} className={`relative grid h-full ${s.featured ? "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]" : "grid-rows-[auto_1fr]"}`}>
               <div className={`pixel-grid relative overflow-hidden border-line p-6 md:p-7 ${s.featured ? "order-first border-b lg:order-last lg:border-b-0 lg:border-l" : "border-b"}`}>
@@ -44,8 +51,9 @@ export function ServicesGrid({ services, learnMore, visuals }: { services: Servi
               </div>
             </Link>
           </SpotlightCard>
-        </RevealItem>
+        </li>
       ))}
-    </RevealGroup>
+    </ul>
+    </Reveal>
   );
 }

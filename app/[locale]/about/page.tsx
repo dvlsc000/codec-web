@@ -16,6 +16,7 @@ import { CountUp } from "@/components/ui/CountUp";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { SwipeRail } from "@/components/ui/SwipeRail";
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const { locale, dict } = await resolvePage(params);
@@ -184,10 +185,10 @@ export default async function AboutPage({ params }: LocaleParams) {
         <Reveal>
           <h2 id="values-title" className="text-h2 mb-12 md:mb-16">{t.valuesTitle}</h2>
         </Reveal>
-        <RevealGroup as="ul" className="grid gap-4 md:grid-cols-3 lg:gap-5">
+        <Reveal>
+        <SwipeRail label={t.valuesTitle} gridClassName="md:grid md:grid-cols-3 md:gap-4 lg:gap-5">
           {t.values.map((v) => (
-            <RevealItem as="li" key={v.title}>
-              <SpotlightCard accent="ember" className="h-full">
+              <SpotlightCard key={v.title} accent="ember" className="h-full">
                 <div className="flex h-full flex-col p-6 md:p-9">
                   <span className="grid size-12 place-items-center rounded-[13px] md:size-14 border border-line bg-night-2 text-ember transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/card:-rotate-6 group-hover/card:scale-110">
                     <Icon name={v.icon as IconName} size={26} />
@@ -196,9 +197,9 @@ export default async function AboutPage({ params }: LocaleParams) {
                   <p className="mt-3 text-lg leading-relaxed text-muted">{v.text}</p>
                 </div>
               </SpotlightCard>
-            </RevealItem>
           ))}
-        </RevealGroup>
+        </SwipeRail>
+        </Reveal>
       </section>
 
       {/* 7. Company details */}

@@ -72,6 +72,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Film grain — gives large dark fields a physical, printed quality */

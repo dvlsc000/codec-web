@@ -14,7 +14,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-16 overflow-hidden border-t border-line md:mt-24">
+    <footer id="site-footer" className="relative mt-16 overflow-hidden border-t border-line md:mt-24">
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--color-ember),var(--color-steel),transparent)] opacity-50" />
       <div className="container-site grid grid-cols-2 gap-x-6 gap-y-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:gap-12 md:py-20">
         <div className="col-span-2 max-w-xs md:col-span-1">

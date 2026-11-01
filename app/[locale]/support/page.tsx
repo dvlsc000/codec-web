@@ -13,6 +13,7 @@ import { Icon, type IconName } from "@/components/ui/Icon";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { SwipeRail } from "@/components/ui/SwipeRail";
 import { ServiceVisual } from "@/components/visuals";
 import { JsonLd } from "@/components/seo/JsonLd";
 
@@ -54,10 +55,10 @@ export default async function SupportPage({ params }: LocaleParams) {
 
       <section aria-labelledby="channels-title" className="container-site pb-16 md:pb-32">
         <SectionHeader id="channels-title" title={t.channelsTitle} align="stack" />
-        <RevealGroup as="ul" className="grid gap-4 md:grid-cols-3 lg:gap-5">
+        <Reveal>
+        <SwipeRail label={t.channelsTitle} gridClassName="md:grid md:grid-cols-3 md:gap-4 lg:gap-5">
           {channels.map((c) => (
-            <RevealItem as="li" key={c.title}>
-              <SpotlightCard accent="ember" className="h-full">
+              <SpotlightCard key={c.title} accent="ember" className="h-full">
                 <div className="p-7">
                   <div className="flex items-center justify-between">
                     <span className="grid size-11 place-items-center rounded-[10px] border border-line bg-night-2 text-ember">
@@ -81,9 +82,9 @@ export default async function SupportPage({ params }: LocaleParams) {
                   </ul>
                 </div>
               </SpotlightCard>
-            </RevealItem>
           ))}
-        </RevealGroup>
+        </SwipeRail>
+        </Reveal>
       </section>
 
       <section aria-labelledby="included-title" className="border-y border-line bg-night-2/50 py-16 md:py-32">

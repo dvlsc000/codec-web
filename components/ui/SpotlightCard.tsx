@@ -18,7 +18,7 @@ export function SpotlightCard({ accent, className = "", children }: { accent: Ac
     <div
       data-accent={accent}
       onPointerMove={onMove}
-      className={`edge-glow group/card relative overflow-hidden rounded-[var(--radius-card)] border border-line bg-[linear-gradient(180deg,rgb(255_255_255/0.035),rgb(255_255_255/0.01))] bg-night-3/60 shadow-[0_30px_60px_-34px_rgb(0_0_0/0.7)] transition-[border-color,box-shadow] duration-500 ease-out hover:border-[rgb(var(--accent-rgb)/0.35)] hover:shadow-[0_30px_70px_-30px_rgb(var(--accent-rgb)/0.22)] ${className}`}
+      className={`edge-glow group/card relative overflow-hidden rounded-[var(--radius-card)] border border-line bg-[linear-gradient(180deg,rgb(255_255_255/0.035),rgb(255_255_255/0.01))] bg-night-3/60 shadow-[0_30px_60px_-34px_rgb(0_0_0/0.7)] transition-[border-color,box-shadow,transform] duration-500 ease-out active:scale-[0.985] active:duration-150 hover:border-[rgb(var(--accent-rgb)/0.35)] hover:shadow-[0_30px_70px_-30px_rgb(var(--accent-rgb)/0.22)] ${className}`}
     >
       <div
         aria-hidden="true"

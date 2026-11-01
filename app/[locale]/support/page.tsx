@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { site } from "@/content/site";
 
-import { href } from "@/lib/i18n/paths";
+import { href, serviceHref } from "@/lib/i18n/paths";
 import { resolvePage, type LocaleParams } from "@/lib/page";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/PageHero";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
+import Link from "next/link";
+import { getService } from "@/content/services";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { ButtonLink } from "@/components/ui/Button";
 import { Faq } from "@/components/ui/Faq";
@@ -108,20 +110,44 @@ export default async function SupportPage({ params }: LocaleParams) {
 
       <section aria-labelledby="covered-title" className="container-site py-16 md:py-32">
         <SectionHeader id="covered-title" title={t.coveredTitle} align="stack" />
-        <RevealGroup as="ul" className="grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-          {t.covered.map((c) => (
-            <RevealItem as="li" key={c.title} className="bg-night-2 p-7">
-              <span aria-hidden="true" className="block size-2 rounded-[1px] bg-ember" />
-              <h3 className="text-h3 mt-5">{c.title}</h3>
-              <p className="mt-2 text-muted">{c.text}</p>
-            </RevealItem>
-          ))}
+        <RevealGroup as="ul" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+          {t.covered.map((c) => {
+            const svc = getService(c.service);
+            return (
+              <RevealItem as="li" key={c.title}>
+                <SpotlightCard accent={svc?.accent ?? "ember"} className="h-full">
+                  <Link href={serviceHref(locale, c.service)} className="group/sv relative flex h-full flex-col p-6 md:p-7">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="grid size-12 place-items-center rounded-[12px] border border-line bg-night-3 text-[var(--accent)] transition-transform duration-500 group-hover/sv:-rotate-6 group-hover/sv:scale-105">
+                        <Icon name={svc?.icon ?? "support"} size={22} />
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-[0.7rem] font-medium text-fg/75">
+                        <span className="relative flex size-1.5" aria-hidden="true">
+                          <span className="animate-pulse-ring absolute inline-flex size-full rounded-[1px] bg-[var(--accent)]" />
+                          <span className="relative inline-flex size-1.5 rounded-[1px] bg-[var(--accent)]" />
+                        </span>
+                        0–24
+                      </span>
+                    </div>
+                    <h3 className="text-h3 mt-7">{c.title}</h3>
+                    <p className="mt-2.5 leading-relaxed text-muted">{c.text}</p>
+                    <span className="mt-auto flex items-center justify-between border-t border-line pt-5 text-sm font-medium text-fg/80 transition-colors group-hover/sv:text-[var(--accent)]" style={{ marginTop: "auto" }}>
+                      {dict.common.learnMore}
+                      <span className="grid size-8 place-items-center rounded-full border border-line-strong transition-all duration-500 group-hover/sv:border-[var(--accent)] group-hover/sv:bg-[var(--accent)] group-hover/sv:text-night">
+                        <Icon name="arrowUpRight" size={15} />
+                      </span>
+                    </span>
+                  </Link>
+                </SpotlightCard>
+              </RevealItem>
+            );
+          })}
         </RevealGroup>
       </section>
 
       <section aria-labelledby="process-title" className="container-site pb-16 md:pb-32">
         <SectionHeader id="process-title" title={t.processTitle} lead={t.processLead} />
-        <ProcessSteps steps={t.steps} />
+        <ProcessSteps steps={t.steps} icons={["phone", "pulse", "spark", "document"]} />
       </section>
 
       <section aria-labelledby="faq-title" className="container-site pb-24">

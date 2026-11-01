@@ -47,11 +47,13 @@ export function VoiceAgentDemo(props: VoiceAgentDemoProps) {
       return;
     }
     if (step >= total) return;
-    const isMessage = step < transcript.length;
-    // Brief pause, a "typing" beat proportional to the line length, then show it.
-    const pause = step === 0 ? 500 : 350;
-    const typingFor = isMessage ? 650 + Math.min(1300, transcript[step].text.length * 14) : 550;
-    const t1 = setTimeout(() => setTyping(isMessage), pause);
+    const line = transcript[step];
+    const isSpoken = !!line && line.who !== "system";
+    // Natural pacing: a pause, then a "speaking" beat proportional to the line length.
+    // System actions (database, calendar) appear after a short working moment, without the typing bubble.
+    const pause = step === 0 ? 500 : line?.who === "system" ? 250 : 450;
+    const typingFor = !line ? 550 : line.who === "system" ? 900 : 600 + Math.min(1700, line.text.length * (line.who === "caller" ? 22 : 16));
+    const t1 = setTimeout(() => setTyping(isSpoken), pause);
     const t2 = setTimeout(() => {
       setTyping(false);
       setStep((s) => s + 1);
@@ -110,11 +112,29 @@ export function VoiceAgentDemo(props: VoiceAgentDemoProps) {
             instead of the panel (and the page below it) jumping. */}
         <ol
           aria-live="polite"
-          className="relative flex h-[24rem] flex-col justify-end overflow-hidden py-4 [mask-image:linear-gradient(to_bottom,transparent,#000_14%)] md:h-[23rem]"
+          className="relative flex h-[26rem] flex-col justify-end overflow-hidden py-4 [mask-image:linear-gradient(to_bottom,transparent,#000_16%)] md:h-[28rem]"
         >
           <AnimatePresence initial={false}>
             {visibleMessages.map((msg, i) => {
               const agent = msg.who === "agent";
+              if (msg.who === "system")
+                return (
+                  <m.li
+                    key={`${run}-${i}`}
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ height: { duration: 0.8, ease: glide }, opacity: { duration: 0.6, delay: 0.15 } }}
+                    className="flex shrink-0 justify-center overflow-hidden"
+                  >
+                    <span className="mt-3 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3 py-1.5 text-[0.75rem] text-muted">
+                      <span className="grid size-4 place-items-center rounded-full bg-ember/15 text-ember">
+                        <Icon name="check" size={10} strokeWidth={3} />
+                      </span>
+                      {msg.text}
+                    </span>
+                  </m.li>
+                );
               return (
                 <m.li
                   key={`${run}-${i}`}
@@ -163,7 +183,7 @@ export function VoiceAgentDemo(props: VoiceAgentDemoProps) {
         </ol>
 
         {/* System actions */}
-        <div className="relative flex min-h-[6.5rem] flex-wrap content-start items-start gap-2 border-t border-line pt-5 sm:min-h-[4.25rem]">
+        <div className="relative flex min-h-[9rem] flex-wrap content-start items-start gap-2 border-t border-line pt-5 sm:min-h-[7.25rem]">
           {visibleEvents.map((ev) => (
             <m.span
               key={`${run}-${ev}`}

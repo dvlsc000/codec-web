@@ -57,7 +57,7 @@ export default async function HomePage({ params }: LocaleParams) {
 
       <section aria-labelledby="process-title" className="section-y container-site">
         <SectionHeader id="process-title" title={t.process.title} lead={t.process.lead} />
-        <ProcessSteps steps={t.process.steps} />
+        <ProcessSteps steps={t.process.steps} icons={["chat", "document", "code", "support"]} />
       </section>
 
       <section aria-labelledby="heritage-title" className="container-site pb-[clamp(3.75rem,2rem+8vw,10rem)]">

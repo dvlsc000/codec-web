@@ -29,7 +29,7 @@ export function ClientMarquee({ title, clients }: { title: string; clients: { na
   return (
     <section aria-label={title} className="relative border-y border-line py-8 md:py-10">
       <h2 className="sr-only">{title}</h2>
-      <div className="group flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
+      <div className="group mx-auto flex max-w-[110rem] overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
         <div className="animate-marquee flex group-hover:[animation-play-state:paused]" style={{ animationDuration: `${clients.length * 2.4}s` }}>
           {row(false)}
           {row(true)}

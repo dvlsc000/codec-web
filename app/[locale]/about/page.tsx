@@ -83,15 +83,17 @@ export default async function AboutPage({ params }: LocaleParams) {
           </div>
 
           <div className="lg:pt-12">
-            <RevealGroup className="space-y-6">
+            <RevealGroup className="space-y-5 md:space-y-6">
               <RevealItem>
-                <p className="text-[clamp(1.2rem,1.05rem+0.6vw,1.5rem)] font-medium leading-snug text-fg">{t.storyLead}</p>
+                <p className="text-[clamp(1.18rem,1.05rem+0.6vw,1.5rem)] font-medium leading-[1.45] tracking-[-0.01em] text-fg [text-wrap:balance]">{t.storyLead}</p>
               </RevealItem>
-              {t.story.map((p) => (
-                <RevealItem key={p}>
-                  <p className="text-lg leading-relaxed text-fg/65">{p}</p>
-                </RevealItem>
-              ))}
+              <RevealItem>
+                <div className="space-y-4 border-l border-ember/40 pl-5 md:space-y-5 md:pl-6">
+                  {t.story.map((p) => (
+                    <p key={p} className="text-[1.02rem] leading-[1.65] text-fg/65 md:text-lg md:leading-relaxed">{p}</p>
+                  ))}
+                </div>
+              </RevealItem>
             </RevealGroup>
 
             {/* Two areas we work in today: the proven CAM product and the new generation */}

@@ -121,8 +121,8 @@ const en: Dictionary = {
     footprintLead: "Each square is one reference client — hotels, hospitals, banks and corporate groups in four countries.",
     storyLead: "For years Codec has built and deployed software for companies, hotels and institutions in Croatia and abroad.",
     story: [
-      "Our Call Accounting Manager helps companies increase productivity while reducing telephone operating costs.",
-      "Those projects taught us what it means to build systems that never stop and to support them around the clock. We still offer and support Call Accounting Manager, and today we apply the same know-how to a new generation of solutions.",
+      "Our Call Accounting Manager helps companies raise productivity while cutting telephone costs — and we still offer and support it today.",
+      "Those projects taught us to build systems that never stop and to support them around the clock. Today we bring the same know-how to AI voice agents, automation and web.",
     ],
     journey: [
       { label: "Proven product", title: "Telephony and billing", text: "Call Accounting Manager — capture, pricing and review of calls from phone systems.", link: "Call Accounting Manager" },

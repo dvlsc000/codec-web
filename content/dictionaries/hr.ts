@@ -124,8 +124,8 @@ const hr = {
     footprintLead: "Svaki kvadratić je jedan referentni klijent — hoteli, bolnice, banke i koncerni u četiri zemlje.",
     storyLead: "Codec godinama izrađuje i uvodi programska rješenja u tvrtkama, hotelima i ustanovama u Hrvatskoj i inozemstvu.",
     story: [
-      "Naš Call Accounting Manager pomaže tvrtkama povećati produktivnost uz smanjenje telefonskih operativnih troškova.",
-      "Kroz te projekte naučili smo što znači graditi sustave koji rade bez prekida i podržavati ih 0–24. Call Accounting Manager i dalje nudimo i podržavamo, a isto iskustvo danas primjenjujemo i na novu generaciju rješenja.",
+      "Naš Call Accounting Manager pomaže tvrtkama povećati produktivnost uz smanjenje telefonskih troškova — i danas ga nudimo i podržavamo.",
+      "Na tim smo projektima naučili graditi sustave koji rade bez prekida i podržavati ih 0–24. Isto znanje danas ugrađujemo u AI glasovne agente, automatizaciju i web.",
     ],
     journey: [
       { label: "Provjereno rješenje", title: "Telefonija i obračun", text: "Call Accounting Manager — prihvat, tarifikacija i pregled poziva s telefonskih centrala.", link: "Call Accounting Manager" },

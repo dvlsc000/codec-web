@@ -92,8 +92,6 @@ export default async function LocaleLayout({ children, params }: Props) {
           </main>
           <Footer locale={locale} dict={dict} />
           <MobileActionBar
-            bookLabel={dict.common.bookCall}
-            bookHref={href(locale, "contact")}
             callLabel={dict.contact.callUs}
             phoneHref={`tel:${site.contact.phones.main.href}`}
             hideOn={[href(locale, "contact")]}

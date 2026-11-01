@@ -1,25 +1,20 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 
 /**
- * Phone-only action bar, docked at the bottom like an app: call and book a call
- * are always one tap away. Appears after the hero, steps aside over the footer,
- * and is hidden on the contact page (which has its own actions).
+ * Phone-only floating call button, bottom right: calling Codec is always one
+ * tap away. Appears after the hero, steps aside over the footer, and is hidden
+ * on the contact page (which has its own actions).
  */
 export function MobileActionBar({
-  bookLabel,
-  bookHref,
   callLabel,
   phoneHref,
   hideOn,
 }: {
-  bookLabel: string;
-  bookHref: string;
   callLabel: string;
   phoneHref: string;
   /** Paths where the bar should not show. */
@@ -48,30 +43,17 @@ export function MobileActionBar({
   return (
     <AnimatePresence>
       {show && (
-        <m.div
-          initial={{ y: 110, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 110, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 380, damping: 34 }}
-          className="fixed inset-x-0 bottom-0 z-30 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden"
+        <m.a
+          href={phoneHref}
+          aria-label={callLabel}
+          initial={{ scale: 0.6, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.6, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 420, damping: 30 }}
+          className="fixed bottom-[max(1rem,calc(env(safe-area-inset-bottom)+0.5rem))] right-4 z-30 grid size-14 place-items-center rounded-full bg-[linear-gradient(135deg,var(--color-ember),var(--color-ember-soft))] text-night shadow-[0_12px_32px_-8px_rgb(255_90_31/0.75),0_0_0_1px_rgb(255_255_255/0.08)_inset] active:scale-95 lg:hidden"
         >
-          <div className="flex items-center gap-2 rounded-[20px] border border-line-strong bg-night-2/95 p-2 shadow-[0_-10px_40px_-12px_rgb(0_0_0/0.9)] backdrop-blur-xl">
-            <a
-              href={phoneHref}
-              aria-label={callLabel}
-              className="grid size-12 shrink-0 place-items-center rounded-[14px] border border-line bg-night-3 text-ember transition-transform active:scale-95"
-            >
-              <Icon name="phone" size={20} />
-            </a>
-            <Link
-              href={bookHref}
-              className="flex h-12 flex-1 items-center justify-center gap-2 rounded-[14px] bg-[linear-gradient(110deg,var(--color-ember),var(--color-ember-soft))] font-medium text-night shadow-[0_8px_24px_-10px_rgb(255_90_31/0.8)] transition-transform active:scale-[0.98]"
-            >
-              {bookLabel}
-              <Icon name="arrowRight" size={17} />
-            </Link>
-          </div>
-        </m.div>
+          <Icon name="phone" size={22} strokeWidth={2} />
+        </m.a>
       )}
     </AnimatePresence>
   );
